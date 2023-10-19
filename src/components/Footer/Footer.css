@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 171px;
+}
+
+.footer__dev-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.footer__dev-date {
+  font-weight: 500;
+  font-size: 16px;
+}
