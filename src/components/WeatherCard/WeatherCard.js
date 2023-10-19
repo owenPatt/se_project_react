@@ -8,7 +8,7 @@ const weatherOptions = [
   { url: "./images/weather/night/cloudy.svg", day: false, type: "cloudy" },
 ];
 
-function WeatherCard({ day, type }) {
+function WeatherCard({ day, type, weatherTemp = "" }) {
   const image = weatherOptions.filter((img) => {
     return img.day === day && img.type === type;
   });
@@ -16,7 +16,7 @@ function WeatherCard({ day, type }) {
 
   return (
     <div className="weather">
-      <p className="weather__temp">75°F</p>
+      <p className="weather__temp">{weatherTemp}</p>
       <img src={imageUrl} alt="Sunny Weather" className="weather__banner" />
     </div>
   );

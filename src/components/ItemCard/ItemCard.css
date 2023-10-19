@@ -1,0 +1,30 @@
+.item-card {
+  max-width: 325px;
+  width: 100%;
+  position: relative;
+}
+
+.item-card__label {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 15px;
+  justify-content: center;
+}
+
+.item-card__label-text {
+  font-size: 16px;
+  font-weight: 700;
+  background-color: white;
+  border-radius: 4px;
+  margin: 0;
+  padding: 2px 12px;
+}
+
+.item-card__image {
+  width: 325px;
+  height: 328px;
+  border: 1px rgba(0, 0, 0, 0.3) solid;
+  border-radius: 15px;
+}
