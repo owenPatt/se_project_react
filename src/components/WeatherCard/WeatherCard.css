@@ -1,0 +1,20 @@
+.weather {
+  position: relative;
+  margin: 0 auto 34px;
+}
+
+.weather__temp {
+  position: absolute;
+  left: 16px;
+  top: 20px;
+  z-index: 2;
+  font-size: 36px;
+  font-weight: 700;
+  margin: 0;
+  color: white;
+}
+
+.weather__banner {
+  width: 100%;
+  height: 80px;
+}
