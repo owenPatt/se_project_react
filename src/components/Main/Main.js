@@ -4,7 +4,7 @@ import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../util/constants";
 
-function Main() {
+function Main({ onSetActiveImage }) {
   const weatherTemp = "75°F";
   return (
     <main className="main">
@@ -15,7 +15,11 @@ function Main() {
       </p>
       <div className="main__card-container">
         {defaultClothingItems.map((item) => {
-          return <ItemCard item={item}></ItemCard>;
+          return (
+            <ItemCard
+              onSetActiveImage={onSetActiveImage}
+              item={item}></ItemCard>
+          );
         })}
       </div>
     </main>
