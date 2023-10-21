@@ -4,37 +4,44 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { useState } from "react";
+import ForecastWeatherApi from "../util/ForecastWeatherApi";
+import { useEffect, useState } from "react";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
-  const [activeImageSrc, setActiveImageSrc] = useState("");
+  const [activeItem, setActiveItem] = useState({});
+  const [temp, setTemp] = useState(0);
 
-  const handleActiveModalAddGarment = () => {
-    setActiveModal("add-garment");
-  };
+  const forecastWeatherApi = new ForecastWeatherApi();
 
-  const handleActiveModalItem = () => {
-    setActiveModal("item");
+  useEffect(() => {
+    forecastWeatherApi.getForecastWeather().then((weather) => {
+      setTemp(Math.round(weather.main.temp));
+    });
+  });
+
+  const handleActiveModal = (modalName) => {
+    setActiveModal(modalName);
   };
 
   const handleActiveModalEmpty = () => {
     setActiveModal("");
   };
 
-  const handleSetActiveImage = (imageSrc) => {
-    setActiveImageSrc(imageSrc);
-    handleActiveModalItem();
+  const handleSetActiveItem = (item) => {
+    setActiveItem(item);
+    handleActiveModal("item");
   };
 
-  const handleUnsetActiveImage = () => {
+  const handleUnsetActiveItem = () => {
+    setActiveItem({});
     handleActiveModalEmpty();
   };
 
   return (
     <div className="app">
-      <Header onHandleModal={handleActiveModalAddGarment} />
-      <Main onSetActiveImage={handleSetActiveImage} />
+      <Header onHandleModal={handleActiveModal} />
+      <Main weatherTemp={temp} onSetActiveImage={handleSetActiveItem} />
       <Footer />
       {activeModal === "add-garment" && (
         <ModalWithForm
@@ -96,8 +103,8 @@ function App() {
       )}
       {activeModal === "item" && (
         <ItemModal
-          imageSrc={activeImageSrc}
-          onClose={handleUnsetActiveImage}></ItemModal>
+          item={activeItem}
+          onClose={handleUnsetActiveItem}></ItemModal>
       )}
     </div>
   );

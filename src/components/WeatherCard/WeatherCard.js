@@ -16,7 +16,7 @@ function WeatherCard({ day, type, weatherTemp = "" }) {
 
   return (
     <div className="weather">
-      <p className="weather__temp">{weatherTemp}</p>
+      <p className="weather__temp">{weatherTemp}°F</p>
       <img src={imageUrl} alt="Sunny Weather" className="weather__banner" />
     </div>
   );

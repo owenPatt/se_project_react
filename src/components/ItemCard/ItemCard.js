@@ -11,7 +11,7 @@ function ItemCard({ item, onSetActiveImage }) {
         src={item.link}
         alt={item.name}
         onClick={() => {
-          onSetActiveImage(item.link);
+          onSetActiveImage(item);
         }}
       />
     </div>

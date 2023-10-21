@@ -15,7 +15,11 @@ function Header({ onHandleModal }) {
         </p>
       </div>
       <div className="header__right-side">
-        <p className="header__add-clothes" onClick={onHandleModal}>
+        <p
+          className="header__add-clothes"
+          onClick={() => {
+            onHandleModal("add-garment");
+          }}>
           + Add clothes
         </p>
         <p className="header__name">Terrence Tegegne</p>

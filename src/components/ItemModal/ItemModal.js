@@ -1,11 +1,6 @@
 import "./ItemModal.css";
 
-const ItemModal = ({
-  title = "Clothes",
-  imageSrc,
-  weather = "Hot",
-  onClose,
-}) => {
+const ItemModal = ({ item, onClose }) => {
   return (
     <div className={"item-modal"}>
       <div className="item-modal__content">
@@ -13,10 +8,10 @@ const ItemModal = ({
           type="button"
           onClick={onClose}
           className="item-modal__close"></button>
-        <img src={imageSrc} alt={title} className="item-modal__picture" />
+        <img src={item.link} alt={item.name} className="item-modal__picture" />
         <div className="item-modal__body">
-          <p className="item-modal__title">{title}</p>
-          <p className="item-modal__description">Weather: {weather}</p>
+          <p className="item-modal__title">{item.name}</p>
+          <p className="item-modal__description">Weather: {item.weather}</p>
         </div>
       </div>
     </div>
