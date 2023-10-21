@@ -31,6 +31,7 @@ function Main({ weatherTemp, onSetActiveImage, type }) {
           .map((item) => {
             return (
               <ItemCard
+                key={item._id}
                 onSetActiveImage={onSetActiveImage}
                 item={item}></ItemCard>
             );
