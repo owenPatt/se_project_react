@@ -5,7 +5,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../util/constants";
 import { useMemo } from "react";
 
-function Main({ weatherTemp, onSetActiveImage }) {
+function Main({ weatherTemp, onSetActiveImage, type }) {
   const weatherType = useMemo(() => {
     if (weatherTemp >= 86) {
       return "hot";
