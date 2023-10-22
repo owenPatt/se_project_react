@@ -1,18 +1,12 @@
 //
 import "./WeatherCard.css";
-
-const weatherOptions = [
-  { url: "./images/weather/day/sunny.svg", day: true, type: "sunny" },
-  { url: "./images/weather/day/cloudy.svg", day: true, type: "cloudy" },
-  { url: "./images/weather/night/sunny.svg", day: false, type: "sunny" },
-  { url: "./images/weather/night/cloudy.svg", day: false, type: "cloudy" },
-];
+import { weatherOptions } from "../../utils/constants";
 
 function WeatherCard({ day, type, weatherTemp = "" }) {
-  const image = weatherOptions.filter((img) => {
+  const image = weatherOptions.find((img) => {
     return img.day === day && img.type === type;
   });
-  const imageUrl = image[0].url || "";
+  const imageUrl = image.url || "";
 
   return (
     <div className="weather">

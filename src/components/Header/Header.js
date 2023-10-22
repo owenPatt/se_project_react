@@ -23,7 +23,11 @@ function Header({ onHandleModal }) {
           + Add clothes
         </p>
         <p className="header__name">Terrence Tegegne</p>
-        <img src="/images/avatar.png" alt="Avatar" className="header__avatar" />
+        <img
+          src="./images/avatar.png"
+          alt="Avatar"
+          className="header__avatar"
+        />
       </div>
     </div>
   );

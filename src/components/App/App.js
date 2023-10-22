@@ -15,10 +15,15 @@ function App() {
   const forecastWeatherApi = new ForecastWeatherApi();
 
   useEffect(() => {
-    forecastWeatherApi.getForecastWeather().then((weather) => {
-      setTemp(Math.round(weather.main.temp));
-    });
-  });
+    forecastWeatherApi
+      .getForecastWeather()
+      .then((weather) => {
+        setTemp(Math.round(weather.main.temp));
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
   const handleActiveModal = (modalName) => {
     setActiveModal(modalName);

@@ -39,4 +39,11 @@ const defaultClothingItems = [
 
 const location = { latitude: 43.0347, longitude: -83.518 };
 
-export { defaultClothingItems, location };
+const weatherOptions = [
+  { url: "./images/weather/day/sunny.svg", day: true, type: "sunny" },
+  { url: "./images/weather/day/cloudy.svg", day: true, type: "cloudy" },
+  { url: "./images/weather/night/sunny.svg", day: false, type: "sunny" },
+  { url: "./images/weather/night/cloudy.svg", day: false, type: "cloudy" },
+];
+
+export { defaultClothingItems, location, weatherOptions };
