@@ -9,7 +9,7 @@ function Header({ onHandleModal }) {
   return (
     <div className="header">
       <div className="header__left-side">
-        <img className="header__logo" src="/images/Logo.png" alt="Logo" />
+        <img className="header__logo" src="./images/Logo.png" alt="Logo" />
         <p className="header__date">
           {currentDate}, {location}
         </p>
