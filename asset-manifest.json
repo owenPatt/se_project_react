@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/owenPatt/se_project_react/static/css/main.c3205da2.css",
+    "main.js": "/owenPatt/se_project_react/static/js/main.bce9b6e1.js",
+    "static/js/787.79f92504.chunk.js": "/owenPatt/se_project_react/static/js/787.79f92504.chunk.js",
+    "static/media/CabinetGrotesk-Medium.ttf": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Medium.06e4535179580983658a.ttf",
+    "static/media/CabinetGrotesk-Regular.ttf": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Regular.6a0bc5b857b1a7af3eea.ttf",
+    "static/media/CabinetGrotesk-Bold.ttf": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Bold.049721aa3e601711db60.ttf",
+    "static/media/CabinetGrotesk-Bold.woff": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Bold.0fb1cbec860aa3537c32.woff",
+    "static/media/CabinetGrotesk-Regular.woff": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Regular.133340b3f2339c545d7a.woff",
+    "static/media/CabinetGrotesk-Medium.woff": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Medium.1928499875b5b3682ea5.woff",
+    "static/media/CabinetGrotesk-Regular.woff2": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Regular.36628114dad0d602be78.woff2",
+    "static/media/CabinetGrotesk-Bold.woff2": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Bold.c9c3bc30c44ade9d3b9b.woff2",
+    "static/media/CabinetGrotesk-Medium.woff2": "/owenPatt/se_project_react/static/media/CabinetGrotesk-Medium.467bcdaa2530ea758403.woff2",
+    "static/media/close-button.svg": "/owenPatt/se_project_react/static/media/close-button.5041c8cbf1275be14ac1.svg",
+    "index.html": "/owenPatt/se_project_react/index.html",
+    "main.c3205da2.css.map": "/owenPatt/se_project_react/static/css/main.c3205da2.css.map",
+    "main.bce9b6e1.js.map": "/owenPatt/se_project_react/static/js/main.bce9b6e1.js.map",
+    "787.79f92504.chunk.js.map": "/owenPatt/se_project_react/static/js/787.79f92504.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c3205da2.css",
+    "static/js/main.bce9b6e1.js"
+  ]
+}
