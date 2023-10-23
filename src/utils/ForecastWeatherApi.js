@@ -43,10 +43,9 @@ class ForecastWeatherApi {
   };
 
   getTime = (weather) => {
-    const sunrise = weather.sys.sunrise;
     const sunset = weather.sys.sunset;
     const date = Date.now() / 1000;
-    if (date - sunrise < date - sunset) {
+    if (date - sunset < 0) {
       return true;
     }
     return false;
