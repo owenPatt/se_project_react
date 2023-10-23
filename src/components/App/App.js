@@ -11,6 +11,9 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [activeItem, setActiveItem] = useState({});
   const [temp, setTemp] = useState(0);
+  const [weatherType, setWeatherType] = useState("sunny");
+  const [day, setDay] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const forecastWeatherApi = new ForecastWeatherApi();
 
@@ -18,10 +21,16 @@ function App() {
     forecastWeatherApi
       .getForecastWeather()
       .then((weather) => {
+        console.log(weather);
+        setDay(forecastWeatherApi.getTime(weather));
         setTemp(Math.round(weather.main.temp));
+        setWeatherType(forecastWeatherApi.getWeatherType(weather));
       })
       .catch((e) => {
         console.error(e);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
@@ -46,7 +55,13 @@ function App() {
   return (
     <div className="app">
       <Header onHandleModal={handleActiveModal} />
-      <Main weatherTemp={temp} onSetActiveImage={handleSetActiveItem} />
+      <Main
+        weatherType={weatherType}
+        temp={temp}
+        onSetActiveImage={handleSetActiveItem}
+        day={day}
+        loading={loading}
+      />
       <Footer />
       {activeModal === "add-garment" && (
         <ModalWithForm
