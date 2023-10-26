@@ -11,6 +11,10 @@ The idea of the application is pretty simple - we make a call to an API, which t
 - normalize.css was used to give default css formatting
 - Code was formatted using prettier
 
+## Deploying to Github Pages
+
+- '"homepage": "https://owenpatt.github.io/se_project_react/"' must be added to the package.json
+
 ## Links
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
