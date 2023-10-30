@@ -6,4 +6,17 @@
   margin: auto;
   line-height: 1.2;
   font-family: "CabinetGrotesk";
+  background-color: #f3f3f3;
+}
+
+@media screen and (max-width: 749px) {
+  .app {
+    padding: 32px 40px;
+  }
+}
+
+@media screen and (max-width: 539px) {
+  .app {
+    padding: 18px 16px;
+  }
 }

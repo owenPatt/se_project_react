@@ -9,7 +9,15 @@
 }
 
 .main__card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
   gap: 20px;
+}
+
+@media screen and (max-width: 539px) {
+  .main__card-container {
+    gap: 15px;
+  }
 }

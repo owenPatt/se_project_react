@@ -14,6 +14,7 @@ function App() {
   const [weatherType, setWeatherType] = useState("sunny");
   const [day, setDay] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [location, setLocation] = useState("loading");
 
   const forecastWeatherApi = new ForecastWeatherApi();
 
@@ -21,10 +22,10 @@ function App() {
     forecastWeatherApi
       .getForecastWeather()
       .then((weather) => {
-        console.log(weather);
         setDay(forecastWeatherApi.getTime(weather));
         setTemp(Math.round(weather.main.temp));
         setWeatherType(forecastWeatherApi.getWeatherType(weather));
+        setLocation(weather.name);
       })
       .catch((e) => {
         console.error(e);
@@ -54,7 +55,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header onHandleModal={handleActiveModal} />
+      <Header onHandleModal={handleActiveModal} location={location} />
       <Main
         weatherType={weatherType}
         temp={temp}

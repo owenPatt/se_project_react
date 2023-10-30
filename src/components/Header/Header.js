@@ -1,11 +1,20 @@
 import "./Header.css";
 
-function Header({ onHandleModal }) {
+function Header({ onHandleModal, location }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
-  const location = "Swartz Creek";
+
+  const rightSide = document.querySelector(".header__right-side");
+  const handleExpand = () => {
+    rightSide.classList.add("header__right-side_active");
+  };
+
+  const handleCollapse = () => {
+    rightSide.classList.remove("header__right-side_active");
+  };
+
   return (
     <div className="header">
       <div className="header__left-side">
@@ -19,16 +28,26 @@ function Header({ onHandleModal }) {
           className="header__add-clothes"
           onClick={() => {
             onHandleModal("add-garment");
+            handleCollapse();
           }}>
           + Add clothes
         </p>
-        <p className="header__name">Terrence Tegegne</p>
-        <img
-          src="./images/avatar.png"
-          alt="Avatar"
-          className="header__avatar"
-        />
+        <div className="header__user">
+          <p className="header__name">Terrence Tegegne</p>
+          <img
+            src="./images/avatar.png"
+            alt="Avatar"
+            className="header__avatar"
+          />
+        </div>
+        <button className="header__close" onClick={handleCollapse}></button>
       </div>
+      <img
+        src="./images/collapseBtn.svg"
+        alt="Collapse Button"
+        className="header__open"
+        onClick={handleExpand}
+      />
     </div>
   );
 }
