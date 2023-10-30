@@ -56,9 +56,10 @@
   background-size: contain;
   border: none;
   background-color: transparent;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
+  padding: 0;
 }
 
 @media screen and (max-width: 649px) {

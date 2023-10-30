@@ -31,6 +31,7 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+  padding: 0;
 }
 
 .item-modal__picture {
