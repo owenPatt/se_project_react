@@ -6,6 +6,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
 import { useEffect, useState } from "react";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
@@ -15,6 +16,7 @@ function App() {
   const [day, setDay] = useState(true);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
+  const [currentTempUnit, setCurrentTempUnit] = useState("F");
 
   const forecastWeatherApi = new ForecastWeatherApi();
 
@@ -53,80 +55,87 @@ function App() {
     handleActiveModalEmpty();
   };
 
+  const handleToggleSwitchChange = () => {
+    currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
+  };
+
   return (
     <div className="app">
-      <Header onHandleModal={handleActiveModal} location={location} />
-      <Main
-        weatherType={weatherType}
-        temp={temp}
-        onSetActiveImage={handleSetActiveItem}
-        day={day}
-        loading={loading}
-      />
-      <Footer />
-      {activeModal === "add-garment" && (
-        <ModalWithForm
-          name={"add-garment"}
-          title={"New garment"}
-          buttonText={"Add garment"}
-          onClose={handleActiveModalEmpty}>
-          <div className="form__item">
-            <p className="form__label">Name</p>
-            <input
-              placeholder="Name"
-              className="form__input-text"
-              type="text"
-              name="name"
-              minLength={"1"}
-              maxLength={"30"}
-            />
-          </div>
-          <div className="form__item">
-            <p className="form__label">Image</p>
-            <input
-              placeholder="Image"
-              name="link"
-              className="form__input-text"
-              type="url"
-            />
-          </div>
-          <p className="form__label">Select the weather type:</p>
-          <div className="form__item form__item_radio">
-            <label className="form__radio">
+      <CurrentTempUnitContext.Provider
+        value={{ currentTempUnit, handleToggleSwitchChange }}>
+        <Header onHandleModal={handleActiveModal} location={location} />
+        <Main
+          weatherType={weatherType}
+          temp={temp}
+          onSetActiveImage={handleSetActiveItem}
+          day={day}
+          loading={loading}
+        />
+        <Footer />
+        {activeModal === "add-garment" && (
+          <ModalWithForm
+            name={"add-garment"}
+            title={"New garment"}
+            buttonText={"Add garment"}
+            onClose={handleActiveModalEmpty}>
+            <div className="form__item">
+              <p className="form__label">Name</p>
               <input
-                type="radio"
-                name="tempRadio"
-                value="hot"
-                className="form__input-radio"
+                placeholder="Name"
+                className="form__input-text"
+                type="text"
+                name="name"
+                minLength={"1"}
+                maxLength={"30"}
               />
-              <p className="form__label-radio">Hot</p>
-            </label>
-            <label className="form__radio">
+            </div>
+            <div className="form__item">
+              <p className="form__label">Image</p>
               <input
-                type="radio"
-                name="tempRadio"
-                value="warm"
-                className="form__input-radio"
+                placeholder="Image"
+                name="link"
+                className="form__input-text"
+                type="url"
               />
-              <p className="form__label-radio">Warm</p>
-            </label>
-            <label className="form__radio">
-              <input
-                type="radio"
-                name="tempRadio"
-                value="cold"
-                className="form__input-radio"
-              />
-              <p className="form__label-radio">Cold</p>
-            </label>
-          </div>
-        </ModalWithForm>
-      )}
-      {activeModal === "item" && (
-        <ItemModal
-          item={activeItem}
-          onClose={handleUnsetActiveItem}></ItemModal>
-      )}
+            </div>
+            <p className="form__label">Select the weather type:</p>
+            <div className="form__item form__item_radio">
+              <label className="form__radio">
+                <input
+                  type="radio"
+                  name="tempRadio"
+                  value="hot"
+                  className="form__input-radio"
+                />
+                <p className="form__label-radio">Hot</p>
+              </label>
+              <label className="form__radio">
+                <input
+                  type="radio"
+                  name="tempRadio"
+                  value="warm"
+                  className="form__input-radio"
+                />
+                <p className="form__label-radio">Warm</p>
+              </label>
+              <label className="form__radio">
+                <input
+                  type="radio"
+                  name="tempRadio"
+                  value="cold"
+                  className="form__input-radio"
+                />
+                <p className="form__label-radio">Cold</p>
+              </label>
+            </div>
+          </ModalWithForm>
+        )}
+        {activeModal === "item" && (
+          <ItemModal
+            item={activeItem}
+            onClose={handleUnsetActiveItem}></ItemModal>
+        )}
+      </CurrentTempUnitContext.Provider>
     </div>
   );
 }

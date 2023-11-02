@@ -1,4 +1,6 @@
 import "./Header.css";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTempUnitContext";
 
 function Header({ onHandleModal, location }) {
   const currentDate = new Date().toLocaleString("default", {
@@ -24,6 +26,7 @@ function Header({ onHandleModal, location }) {
         </p>
       </div>
       <div className="header__right-side">
+        <ToggleSwitch />
         <p
           className="header__add-clothes"
           onClick={() => {

@@ -1,10 +1,13 @@
 //
 import "./Main.css";
+import { useContext } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 import { defaultClothingItems } from "../../utils/constants";
+import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
 function Main({ temp, onSetActiveImage, weatherType, day, loading }) {
+  const currentTempUnit = useContext(CurrentTempUnitContext);
   const getWeatherTemp = () => {
     if (temp >= 86) {
       return "hot";
@@ -15,6 +18,13 @@ function Main({ temp, onSetActiveImage, weatherType, day, loading }) {
     }
   };
 
+  const getConvertedTemp = () => {
+    if (currentTempUnit.currentTempUnit === "C") {
+      return Math.round(((temp - 32) * 5) / 9);
+    }
+    return temp;
+  };
+
   const weatherTemp = getWeatherTemp();
 
   return (
@@ -22,12 +32,16 @@ function Main({ temp, onSetActiveImage, weatherType, day, loading }) {
       <WeatherCard
         day={day}
         type={weatherType}
-        weatherTemp={temp}
+        weatherTemp={getConvertedTemp()}
         loading={loading}
       />
 
       <p className="main__temp-title">
-        {loading ? "Loading..." : `Today is ${temp}°F / You may want to wear:`}
+        {loading
+          ? "Loading..."
+          : `Today is ${getConvertedTemp()}°${
+              currentTempUnit.currentTempUnit
+            } / You may want to wear:`}
       </p>
       <div className="main__card-container">
         {defaultClothingItems
