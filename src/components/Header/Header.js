@@ -14,9 +14,23 @@ function Header({ onHandleModal, location }) {
   // Functions to expand and collapse functions
   const handleExpand = () => {
     rightSide.classList.add("header__right-side_active");
+    document.addEventListener("click", handleUnfocus);
   };
   const handleCollapse = () => {
     rightSide.classList.remove("header__right-side_active");
+    document.removeEventListener("click", handleUnfocus);
+  };
+
+  // Used to check when expander is unfocused
+  const handleUnfocus = (e) => {
+    if (
+      e.target === rightSide ||
+      rightSide.contains(e.target) ||
+      e.target.classList.contains("header__open")
+    ) {
+      return;
+    }
+    handleCollapse();
   };
 
   return (
@@ -30,9 +44,8 @@ function Header({ onHandleModal, location }) {
       </div>
       {/* Right side of the header with various elements. */}
       <div className="header__right-side">
-        {/* Render the ToggleSwitch component for temperature unit switching. */}
         <ToggleSwitch />
-        {/* Add clothes button, triggers modal and collapse. */}
+        {/* Add Garment button */}
         <p
           className="header__add-clothes"
           onClick={() => {

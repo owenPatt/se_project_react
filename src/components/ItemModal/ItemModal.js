@@ -1,8 +1,14 @@
 import "./ItemModal.css";
 
 const ItemModal = ({ item, onClose }) => {
+  const handleClickOff = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={"item-modal"}>
+    <div className={"item-modal"} onClick={handleClickOff}>
       <div className="item-modal__content">
         {/* Close button to close the modal */}
         <button

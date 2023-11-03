@@ -8,8 +8,15 @@ function ModalWithForm({
   title = "Form",
   onClose,
 }) {
+  // Used to close modal when clicked off
+  const handleClickOff = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`modal modal_type_${name}`}>
+    <div className={`modal modal_type_${name}`} onClick={handleClickOff}>
       <div className="modal__content">
         {/* Close button to close the modal */}
         <button

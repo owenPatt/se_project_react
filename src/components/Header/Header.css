@@ -74,7 +74,7 @@
   .header__right-side {
     right: 0px;
     top: 0px;
-    z-index: 2;
+    z-index: 5;
     background-color: white;
     border-radius: 10px;
     position: absolute;
