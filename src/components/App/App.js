@@ -1,4 +1,6 @@
+// Import necessary CSS file for styling.
 import "./App.css";
+// Import React components and libraries.
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -8,22 +10,27 @@ import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
 import { useEffect, useState } from "react";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 
+// Define the main App component.
 function App() {
+  // State variables and their initial values.
   const [activeModal, setActiveModal] = useState("");
-  const [activeItem, setActiveItem] = useState({});
+  const [activeItem, setActiveItem] = useState({}); // Manage the active item for the modals
   const [temp, setTemp] = useState(0);
   const [weatherType, setWeatherType] = useState("sunny");
   const [day, setDay] = useState(true);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
-  const [currentTempUnit, setCurrentTempUnit] = useState("F");
+  const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
 
+  // Create an instance of the ForecastWeatherApi class.
   const forecastWeatherApi = new ForecastWeatherApi();
 
+  // Use the useEffect hook to fetch weather data when the component mounts.
   useEffect(() => {
     forecastWeatherApi
       .getForecastWeather()
       .then((weather) => {
+        // Update state with weather data.
         setDay(forecastWeatherApi.getTime(weather));
         setTemp(Math.round(weather.main.temp));
         setWeatherType(forecastWeatherApi.getWeatherType(weather));
@@ -33,28 +40,38 @@ function App() {
         console.error(e);
       })
       .finally(() => {
+        // Set loading state to false when the data is fetched.
         setLoading(false);
       });
   }, []);
 
+  /********************
+   * HANDLE FUNCTIONS *
+   ********************/
+
+  // Opens modal that is given
   const handleActiveModal = (modalName) => {
     setActiveModal(modalName);
   };
 
+  // Function to close the active modal dialog.
   const handleActiveModalEmpty = () => {
     setActiveModal("");
   };
 
+  // Used when picture Modal opens
   const handleSetActiveItem = (item) => {
     setActiveItem(item);
     handleActiveModal("item");
   };
 
+  // Used when picture modal closes
   const handleUnsetActiveItem = () => {
     setActiveItem({});
     handleActiveModalEmpty();
   };
 
+  // Function to toggle the temperature unit between Fahrenheit and Celsius.
   const handleToggleSwitchChange = () => {
     currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
   };
@@ -72,6 +89,8 @@ function App() {
           loading={loading}
         />
         <Footer />
+
+        {/* Garment Modal */}
         {activeModal === "add-garment" && (
           <ModalWithForm
             name={"add-garment"}
@@ -130,6 +149,7 @@ function App() {
             </div>
           </ModalWithForm>
         )}
+        {/* Item/Picture Modal */}
         {activeModal === "item" && (
           <ItemModal
             item={activeItem}

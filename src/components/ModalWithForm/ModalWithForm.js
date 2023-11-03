@@ -11,12 +11,14 @@ function ModalWithForm({
   return (
     <div className={`modal modal_type_${name}`}>
       <div className="modal__content">
+        {/* Close button to close the modal */}
         <button
           type="button"
           onClick={onClose}
           className="modal__close"></button>
         <p className="modal__title">{title}</p>
         <form className="modal__form">
+          {/* Render the inside of the form */}
           {children}
           <button type="submit" className="modal__submit">
             {buttonText}

@@ -4,6 +4,7 @@ const ItemModal = ({ item, onClose }) => {
   return (
     <div className={"item-modal"}>
       <div className="item-modal__content">
+        {/* Close button to close the modal */}
         <button
           type="button"
           onClick={onClose}
