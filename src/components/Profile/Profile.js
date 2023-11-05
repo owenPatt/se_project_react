@@ -2,7 +2,7 @@ import "./Profile.css";
 import displayItems from "../../utils/displayItems";
 import getTempCategory from "../../utils/getTempCategory";
 
-function Profile({ temp, onSetActiveImage, onHandleModal }) {
+function Profile({ temp, onSetActiveImage, onHandleModal, clothingItems }) {
   const tempCategory = getTempCategory(temp);
   return (
     <div className="profile">
@@ -27,7 +27,7 @@ function Profile({ temp, onSetActiveImage, onHandleModal }) {
           </p>
         </div>
         <div className="profile__cards-container">
-          {displayItems(tempCategory, onSetActiveImage)}
+          {displayItems(tempCategory, onSetActiveImage, clothingItems)}
         </div>
       </div>
     </div>

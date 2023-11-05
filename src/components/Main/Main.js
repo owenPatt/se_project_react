@@ -6,7 +6,14 @@ import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 import displayItems from "../../utils/displayItems";
 import getTempCategory from "../../utils/getTempCategory";
 
-function Main({ temp, onSetActiveImage, weatherType, day, loading }) {
+function Main({
+  temp,
+  onSetActiveImage,
+  weatherType,
+  day,
+  loading,
+  clothingItems,
+}) {
   // Access the current temperature unit from the context.
   const currentTempUnit = useContext(CurrentTempUnitContext);
 
@@ -39,7 +46,7 @@ function Main({ temp, onSetActiveImage, weatherType, day, loading }) {
       </p>
       <div className="main__card-container">
         {/* Map through and render ItemCard components based on the current weather temperature category. */}
-        {displayItems(tempCategory, onSetActiveImage)}
+        {displayItems(tempCategory, onSetActiveImage, clothingItems)}
       </div>
     </main>
   );

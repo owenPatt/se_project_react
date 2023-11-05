@@ -4,13 +4,14 @@ import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
 import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import { defaultClothingItems } from "../../utils/constants";
 
 // Define the main App component.
 function App() {
@@ -23,6 +24,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
   const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   // Create an instance of the ForecastWeatherApi class.
   const forecastWeatherApi = new ForecastWeatherApi();
@@ -78,6 +80,10 @@ function App() {
     currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
   };
 
+  const handleAddItemSubmit = (item) => {
+    setClothingItems([item, ...clothingItems]);
+  };
+
   return (
     <div className="app">
       <CurrentTempUnitContext.Provider
@@ -89,6 +95,7 @@ function App() {
               temp={temp}
               onSetActiveImage={handleSetActiveItem}
               onHandleModal={handleActiveModal}
+              clothingItems={clothingItems}
             />
           </Route>
 
@@ -99,6 +106,7 @@ function App() {
               onSetActiveImage={handleSetActiveItem}
               day={day}
               loading={loading}
+              clothingItems={clothingItems}
             />
           </Route>
         </Switch>
@@ -106,62 +114,10 @@ function App() {
 
         {/* Garment Modal */}
         {activeModal === "add-garment" && (
-          <ModalWithForm
-            name={"add-garment"}
-            title={"New garment"}
-            buttonText={"Add garment"}
-            onClose={handleActiveModalEmpty}>
-            <div className="form__item">
-              <p className="form__label">Name</p>
-              <input
-                placeholder="Name"
-                className="form__input-text"
-                type="text"
-                name="name"
-                minLength={"1"}
-                maxLength={"30"}
-              />
-            </div>
-            <div className="form__item">
-              <p className="form__label">Image</p>
-              <input
-                placeholder="Image"
-                name="link"
-                className="form__input-text"
-                type="url"
-              />
-            </div>
-            <p className="form__label">Select the weather type:</p>
-            <div className="form__item form__item_radio">
-              <label className="form__radio">
-                <input
-                  type="radio"
-                  name="tempRadio"
-                  value="hot"
-                  className="form__input-radio"
-                />
-                <p className="form__label-radio">Hot</p>
-              </label>
-              <label className="form__radio">
-                <input
-                  type="radio"
-                  name="tempRadio"
-                  value="warm"
-                  className="form__input-radio"
-                />
-                <p className="form__label-radio">Warm</p>
-              </label>
-              <label className="form__radio">
-                <input
-                  type="radio"
-                  name="tempRadio"
-                  value="cold"
-                  className="form__input-radio"
-                />
-                <p className="form__label-radio">Cold</p>
-              </label>
-            </div>
-          </ModalWithForm>
+          <AddItemModal
+            isOpen={true}
+            onCloseModal={handleActiveModalEmpty}
+            onAddItem={handleAddItemSubmit}></AddItemModal>
         )}
         {/* Item/Picture Modal */}
         {activeModal === "item" && (

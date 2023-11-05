@@ -1,17 +1,13 @@
-import { defaultClothingItems } from "./constants";
 import ItemCard from "../components/ItemCard/ItemCard";
 
-const displayItems = (tempCategory, onSetActiveImage) => {
-  return defaultClothingItems
+const displayItems = (tempCategory, onSetActiveImage, items) => {
+  return items
     .filter((item) => {
       return item.weather.toLowerCase() === tempCategory;
     })
     .map((item) => {
       return (
-        <ItemCard
-          key={item._id}
-          onSetActiveImage={onSetActiveImage}
-          item={item}></ItemCard>
+        <ItemCard onSetActiveImage={onSetActiveImage} item={item}></ItemCard>
       );
     });
 };

@@ -7,6 +7,7 @@ function ModalWithForm({
   buttonText = "Submit",
   title = "Form",
   onClose,
+  onSubmit,
 }) {
   // Used to close modal when clicked off
   const handleClickOff = (e) => {
@@ -24,7 +25,7 @@ function ModalWithForm({
           onClick={onClose}
           className="modal__close"></button>
         <p className="modal__title">{title}</p>
-        <form className="modal__form">
+        <form className="modal__form" onSubmit={onSubmit}>
           {/* Render the inside of the form */}
           {children}
           <button type="submit" className="modal__submit">
