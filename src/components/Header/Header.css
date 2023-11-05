@@ -15,6 +15,10 @@
   height: 40px;
 }
 
+.header__date {
+  font-size: 20px;
+}
+
 .header__right-side {
   display: flex;
   gap: 20px;
@@ -22,6 +26,8 @@
 }
 
 .header__add-clothes {
+  font-size: 20px;
+  margin: 0;
   cursor: pointer;
 }
 
@@ -33,6 +39,17 @@
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.header__name {
+  font-size: 20px;
+  margin: 0;
+  color: black;
+  text-decoration: none;
+}
+
+.header__name:hover {
+  opacity: 0.7;
 }
 
 .header__avatar {

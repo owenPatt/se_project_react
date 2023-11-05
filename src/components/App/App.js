@@ -7,8 +7,10 @@ import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
 import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
+import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 // Define the main App component.
 function App() {
@@ -81,13 +83,25 @@ function App() {
       <CurrentTempUnitContext.Provider
         value={{ currentTempUnit, handleToggleSwitchChange }}>
         <Header onHandleModal={handleActiveModal} location={location} />
-        <Main
-          weatherType={weatherType}
-          temp={temp}
-          onSetActiveImage={handleSetActiveItem}
-          day={day}
-          loading={loading}
-        />
+        <Switch>
+          <Route path="/profile">
+            <Profile
+              temp={temp}
+              onSetActiveImage={handleSetActiveItem}
+              onHandleModal={handleActiveModal}
+            />
+          </Route>
+
+          <Route path="/">
+            <Main
+              weatherType={weatherType}
+              temp={temp}
+              onSetActiveImage={handleSetActiveItem}
+              day={day}
+              loading={loading}
+            />
+          </Route>
+        </Switch>
         <Footer />
 
         {/* Garment Modal */}

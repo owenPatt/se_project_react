@@ -1,5 +1,6 @@
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 function Header({ onHandleModal, location }) {
   // Get the current date for header__date
@@ -37,7 +38,9 @@ function Header({ onHandleModal, location }) {
     <div className="header">
       {/* Left side of the header with logo and date. */}
       <div className="header__left-side">
-        <img className="header__logo" src="./images/Logo.png" alt="Logo" />
+        <Link to="/">
+          <img className="header__logo" src="./images/Logo.png" alt="Logo" />
+        </Link>
         <p className="header__date">
           {currentDate}, {location}
         </p>
@@ -56,7 +59,9 @@ function Header({ onHandleModal, location }) {
         </p>
         {/* User information section. */}
         <div className="header__user">
-          <p className="header__name">Terrence Tegegne</p>
+          <Link to="/profile" className="header__name">
+            Terrence Tegegne
+          </Link>
           <img
             src="./images/avatar.png"
             alt="Avatar"
