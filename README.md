@@ -15,6 +15,10 @@ The idea of the application is pretty simple - we make a call to an API, which t
 
 - '"homepage": "https://owenpatt.github.io/se_project_react/"' must be added to the package.json
 
+## Running the local DB
+
+- 'json-server --watch db.json --id \_id --port 3001' must be ran in the bash
+
 ## Links
 
 - [Figma Design](https://www.figma.com/file/DTojSwldenF9UPKQZd6RRb/Sprint-10%3A-WTWR)
