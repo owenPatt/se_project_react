@@ -21,7 +21,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
     const newItem = {
       name: name,
       weather: tempType,
-      link: imageSrc,
+      imageUrl: imageSrc,
     };
     onAddItem(newItem);
     onCloseModal();

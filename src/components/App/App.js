@@ -1,17 +1,18 @@
 // Import necessary CSS file for styling.
 import "./App.css";
-// Import React components and libraries.
+// Imports
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
+import ItemApi from "../../utils/api";
 import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
 import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
-import { defaultClothingItems } from "../../utils/constants";
 
 // Define the main App component.
 function App() {
@@ -24,10 +25,13 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
   const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState({});
 
   // Create an instance of the ForecastWeatherApi class.
   const forecastWeatherApi = new ForecastWeatherApi();
+
+  // Create an instance of the ItemApi class
+  const itemApi = new ItemApi();
 
   // Use the useEffect hook to fetch weather data when the component mounts.
   useEffect(() => {
@@ -47,6 +51,12 @@ function App() {
         // Set loading state to false when the data is fetched.
         setLoading(false);
       });
+  }, []);
+
+  useEffect(() => {
+    itemApi.getItems().then((items) => {
+      setClothingItems(items);
+    });
   }, []);
 
   /********************
@@ -81,7 +91,20 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    setClothingItems([item, ...clothingItems]);
+    itemApi.postItem(item).then((res) => {
+      setClothingItems([res, ...clothingItems]);
+    });
+  };
+
+  const handleDeleteItem = (deletedItem) => {
+    itemApi.deleteItem(deletedItem).then((res) => {
+      setClothingItems(
+        clothingItems.filter((item) => {
+          return item !== deletedItem;
+        })
+      );
+    });
+    handleActiveModalEmpty();
   };
 
   return (
@@ -123,7 +146,15 @@ function App() {
         {activeModal === "item" && (
           <ItemModal
             item={activeItem}
-            onClose={handleUnsetActiveItem}></ItemModal>
+            onClose={handleUnsetActiveItem}
+            onHandleModal={handleActiveModal}></ItemModal>
+        )}
+        {/*  */}
+        {activeModal === "delete-item" && (
+          <DeleteItemModal
+            item={activeItem}
+            onClose={handleUnsetActiveItem}
+            onDelete={handleDeleteItem}></DeleteItemModal>
         )}
       </CurrentTempUnitContext.Provider>
     </div>

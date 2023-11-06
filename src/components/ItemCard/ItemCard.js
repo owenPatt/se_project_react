@@ -10,7 +10,7 @@ function ItemCard({ item, onSetActiveImage }) {
       {/* Image for the item card. */}
       <img
         className="item-card__image"
-        src={item.link}
+        src={item.imageUrl}
         alt={item.name}
         // Attach a click event to set the active image.
         onClick={() => {

@@ -79,7 +79,7 @@
   padding: 0;
 }
 
-@media screen and (max-width: 649px) {
+@media screen and (max-width: 780px) {
   .header__open {
     display: block;
   }
