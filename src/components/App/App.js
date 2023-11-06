@@ -11,7 +11,7 @@ import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
 import ItemApi from "../../utils/api";
 import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 // Define the main App component.

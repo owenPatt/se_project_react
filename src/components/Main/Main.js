@@ -2,7 +2,7 @@ import "./Main.css";
 
 import { useContext } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import displayItems from "../../utils/displayItems";
 import getTempCategory from "../../utils/getTemperatureCategory";
 

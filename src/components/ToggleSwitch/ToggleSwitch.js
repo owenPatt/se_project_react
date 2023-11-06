@@ -2,7 +2,7 @@ import { useContext } from "react";
 import "./ToggleSwitch.css";
 
 // Import the CurrentTempUnitContext to access the current temperature unit and toggle function.
-import CurrentTempUnitContext from "../../contexts/CurrentTempUnitContext";
+import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function ToggleSwitch({}) {
   // Access the current temperature unit and toggle function from the context
