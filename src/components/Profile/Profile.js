@@ -1,6 +1,6 @@
 import "./Profile.css";
 import displayItems from "../../utils/displayItems";
-import getTempCategory from "../../utils/getTempCategory";
+import getTempCategory from "../../utils/getTemperatureCategory";
 
 function Profile({ temp, onSetActiveImage, onHandleModal, clothingItems }) {
   const tempCategory = getTempCategory(temp);
