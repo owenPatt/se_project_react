@@ -54,9 +54,14 @@ function App() {
   }, []);
 
   useEffect(() => {
-    itemApi.getItems().then((items) => {
-      setClothingItems(items);
-    });
+    itemApi
+      .getItems()
+      .then((items) => {
+        setClothingItems(items);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   }, []);
 
   /********************
@@ -87,23 +92,33 @@ function App() {
 
   // Function to toggle the temperature unit between Fahrenheit and Celsius.
   const handleToggleSwitchChange = () => {
-    currentTempUnit === "F" ? setCurrentTempUnit("C") : setCurrentTempUnit("F");
+    setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
   };
 
   const handleAddItemSubmit = (item) => {
-    itemApi.postItem(item).then((res) => {
-      setClothingItems([res, ...clothingItems]);
-    });
+    itemApi
+      .postItem(item)
+      .then((res) => {
+        setClothingItems([res, ...clothingItems]);
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   const handleDeleteItem = (deletedItem) => {
-    itemApi.deleteItem(deletedItem).then((res) => {
-      setClothingItems(
-        clothingItems.filter((item) => {
-          return item !== deletedItem;
-        })
-      );
-    });
+    itemApi
+      .deleteItem(deletedItem)
+      .then((res) => {
+        setClothingItems(
+          clothingItems.filter((item) => {
+            return item !== deletedItem;
+          })
+        );
+      })
+      .catch((e) => {
+        console.error(e);
+      });
     handleActiveModalEmpty();
   };
 

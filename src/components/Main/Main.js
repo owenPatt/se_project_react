@@ -3,7 +3,7 @@ import "./Main.css";
 import { useContext } from "react";
 import WeatherCard from "../WeatherCard/WeatherCard";
 import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
-import displayItems from "../../utils/displayItems";
+import ItemsList from "../ItemsList/ItemsList";
 import getTempCategory from "../../utils/getTemperatureCategory";
 
 function Main({
@@ -46,7 +46,11 @@ function Main({
       </p>
       <div className="main__card-container">
         {/* Map through and render ItemCard components based on the current weather temperature category. */}
-        {displayItems(tempCategory, onSetActiveImage, clothingItems)}
+        <ItemsList
+          tempCategory={tempCategory}
+          onSetActiveImage={onSetActiveImage}
+          items={clothingItems}
+        />
       </div>
     </main>
   );

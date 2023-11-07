@@ -6,14 +6,16 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
   const [imageSrc, setImageSrc] = useState("");
   const [tempType, setTempType] = useState("");
 
-  const handleChange = (e) => {
-    if (e.target.name === "name") {
-      setName(e.target.value);
-    } else if (e.target.name === "link") {
-      setImageSrc(e.target.value);
-    } else {
-      setTempType(e.target.value);
-    }
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleImageSrcChange = (e) => {
+    setImageSrc(e.target.value);
+  };
+
+  const handleTempTypeChange = (e) => {
+    setTempType(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -43,7 +45,8 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           name="name"
           minLength={"1"}
           maxLength={"30"}
-          onChange={handleChange}
+          onChange={handleNameChange}
+          required
         />
       </div>
       <div className="form__item">
@@ -53,7 +56,8 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           name="link"
           className="form__input-text"
           type="url"
-          onChange={handleChange}
+          onChange={handleImageSrcChange}
+          required
         />
       </div>
       <p className="form__label">Select the weather type:</p>
@@ -64,7 +68,8 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             name="tempRadio"
             value="hot"
             className="form__input-radio"
-            onChange={handleChange}
+            onChange={handleTempTypeChange}
+            required
           />
           <p className="form__label-radio">Hot</p>
         </label>
@@ -74,7 +79,8 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             name="tempRadio"
             value="warm"
             className="form__input-radio"
-            onChange={handleChange}
+            onChange={handleTempTypeChange}
+            required
           />
           <p className="form__label-radio">Warm</p>
         </label>
@@ -84,7 +90,8 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             name="tempRadio"
             value="cold"
             className="form__input-radio"
-            onChange={handleChange}
+            onChange={handleTempTypeChange}
+            required
           />
           <p className="form__label-radio">Cold</p>
         </label>
