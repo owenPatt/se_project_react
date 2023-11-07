@@ -45,3 +45,22 @@
   align-items: center;
   gap: 20px;
 }
+
+@media screen and (max-width: 610px) {
+  .profile {
+    gap: 56px;
+  }
+}
+
+@media screen and (max-width: 539px) {
+  .profile {
+    gap: 30px;
+  }
+  .profile__cards-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .profile__cards-container {
+    justify-content: center;
+  }
+}
