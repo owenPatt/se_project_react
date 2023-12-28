@@ -13,6 +13,9 @@ import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
 import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 // Define the main App component.
 function App() {
@@ -26,6 +29,8 @@ function App() {
   const [location, setLocation] = useState("loading");
   const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
   const [clothingItems, setClothingItems] = useState({});
+
+  const loggedIn = false;
 
   // Create an instance of the ForecastWeatherApi class.
   const forecastWeatherApi = new ForecastWeatherApi();
@@ -126,7 +131,11 @@ function App() {
     <div className="app">
       <CurrentTempUnitContext.Provider
         value={{ currentTempUnit, handleToggleSwitchChange }}>
-        <Header onHandleModal={handleActiveModal} location={location} />
+        <Header
+          loggedIn={loggedIn}
+          onHandleModal={handleActiveModal}
+          location={location}
+        />
         <Switch>
           <Route path="/profile">
             <Profile
@@ -136,6 +145,16 @@ function App() {
               clothingItems={clothingItems}
             />
           </Route>
+
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
+            temp={temp}
+            onSetActiveImage={handleSetActiveItem}
+            onHandleModal={handleActiveModal}
+            clothingItems={clothingItems}
+          />
 
           <Route path="/">
             <Main
@@ -164,12 +183,24 @@ function App() {
             onClose={handleUnsetActiveItem}
             onHandleModal={handleActiveModal}></ItemModal>
         )}
-        {/*  */}
+        {/* Delete Item Modal */}
         {activeModal === "delete-item" && (
           <DeleteItemModal
             item={activeItem}
-            onClose={handleUnsetActiveItem}
+            onModalClose={handleUnsetActiveItem}
             onDelete={handleDeleteItem}></DeleteItemModal>
+        )}
+        {/* Sign Up Modal */}
+        {activeModal === "sign-up" && (
+          <RegisterModal
+            setActiveModal={handleActiveModal}
+            onClose={handleActiveModalEmpty}></RegisterModal>
+        )}
+        {/* Sign Up Modal */}
+        {activeModal === "sign-in" && (
+          <LoginModal
+            onClose={handleActiveModalEmpty}
+            setActiveModal={handleActiveModal}></LoginModal>
         )}
       </CurrentTempUnitContext.Provider>
     </div>

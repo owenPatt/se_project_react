@@ -2,7 +2,7 @@ import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-function Header({ onHandleModal, location }) {
+function Header({ onHandleModal, location, loggedIn }) {
   // Get the current date for header__date
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -49,25 +49,48 @@ function Header({ onHandleModal, location }) {
       <div className="header__right-side">
         <ToggleSwitch />
         {/* Add Garment button */}
-        <p
-          className="header__add-clothes"
-          onClick={() => {
-            onHandleModal("add-garment");
-            handleCollapse();
-          }}>
-          + Add clothes
-        </p>
-        {/* User information section. */}
-        <div className="header__user">
-          <Link to="/profile" className="header__name">
-            Terrence Tegegne
-          </Link>
-          <img
-            src="./images/avatar.png"
-            alt="Avatar"
-            className="header__avatar"
-          />
-        </div>
+        {loggedIn ? (
+          <div className="header__loggedIn">
+            <p
+              className="header__text-button"
+              onClick={() => {
+                onHandleModal("add-garment");
+                handleCollapse();
+              }}>
+              + Add clothes
+            </p>
+            {/* User information section. */}
+            <div className="header__user">
+              <Link to="/profile" className="header__name">
+                Terrence Tegegne
+              </Link>
+              <img
+                src="./images/avatar.png"
+                alt="Avatar"
+                className="header__avatar"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="header__loggedOut">
+            <p
+              className="header__text-button"
+              onClick={() => {
+                onHandleModal("sign-up");
+                handleCollapse();
+              }}>
+              Sign Up
+            </p>
+            <p
+              className="header__text-button"
+              onClick={() => {
+                onHandleModal("sign-in");
+                handleCollapse();
+              }}>
+              Log In
+            </p>
+          </div>
+        )}
         {/* last two elements used for collapsing and expanding right-side */}
         <button className="header__close" onClick={handleCollapse}></button>
       </div>

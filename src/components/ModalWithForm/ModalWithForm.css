@@ -48,7 +48,6 @@
 .modal__submit {
   width: fit-content;
   height: fit-content;
-  margin-top: 32px;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -67,6 +66,25 @@
 
 .modal__submit_disabled:hover {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 32px;
+}
+
+.modal__sec-func {
+  font-size: 16px;
+  font-weight: 700;
+  opacity: 0.5;
+  margin: 0;
+}
+
+.modal__sec-func:hover {
+  opacity: 1;
+  cursor: pointer;
 }
 
 .form__item {

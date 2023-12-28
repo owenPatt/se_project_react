@@ -8,6 +8,8 @@ function ModalWithForm({
   title = "Form",
   onClose,
   onSubmit,
+  secFunc = "",
+  secFuncOnClick = () => {},
 }) {
   // Used to close modal when clicked off
   const handleClickOff = (e) => {
@@ -28,9 +30,15 @@ function ModalWithForm({
         <form className="modal__form" onSubmit={onSubmit}>
           {/* Render the inside of the form */}
           {children}
-          <button type="submit" className="modal__submit">
-            {buttonText}
-          </button>
+
+          <div className="modal__buttons">
+            <button type="submit" className="modal__submit">
+              {buttonText}
+            </button>
+            <p className="modal__sec-func" onClick={secFuncOnClick}>
+              {secFunc}
+            </p>
+          </div>
         </form>
       </div>
     </div>

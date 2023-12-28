@@ -25,13 +25,20 @@
   align-items: center;
 }
 
-.header__add-clothes {
+.header__loggedIn,
+.header__loggedOut {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header__text-button {
   font-size: 20px;
   margin: 0;
   cursor: pointer;
 }
 
-.header__add-clothes:hover {
+.header__text-button:hover {
   opacity: 0.7;
 }
 
