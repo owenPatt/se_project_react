@@ -4,8 +4,8 @@ const ProtectedRoute = ({ component: Component, loggedIn, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(rest) =>
-        loggedIn ? <Component {...rest} /> : <Redirect to="/" />
+      render={(routeProps) =>
+        loggedIn ? <Component {...routeProps} {...rest} /> : <Redirect to="/" />
       }
     />
   );

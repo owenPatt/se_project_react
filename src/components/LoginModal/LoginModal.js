@@ -2,7 +2,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
 import { signin } from "../../utils/auth";
 
-function LoginModal({ onClose, setActiveModal }) {
+function LoginModal({ onClose, setActiveModal, setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,9 +14,19 @@ function LoginModal({ onClose, setActiveModal }) {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const loggedUser = signin(email, password);
+
+    try {
+      const loggedUser = await signin(email, password);
+
+      // Closes form
+      onClose();
+      localStorage.setItem("jwt", loggedUser.token);
+      setLoggedIn(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const redirectToRegister = () => {

@@ -21,6 +21,15 @@
   font-size: 20px;
 }
 
+.profile__log-out {
+  font-size: 20px;
+}
+
+.profile__log-out:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
 .profile__cards-header {
   display: flex;
   gap: 20px;

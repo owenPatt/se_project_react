@@ -16,6 +16,8 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import { checkToken } from "../../utils/auth";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 // Define the main App component.
 function App() {
@@ -29,8 +31,8 @@ function App() {
   const [location, setLocation] = useState("loading");
   const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
   const [clothingItems, setClothingItems] = useState({});
-
-  const loggedIn = false;
+  const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
+  const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
 
   // Create an instance of the ForecastWeatherApi class.
   const forecastWeatherApi = new ForecastWeatherApi();
@@ -67,6 +69,18 @@ function App() {
       .catch((e) => {
         console.error(e);
       });
+  }, []);
+
+  // Checks token validity
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    if (token) {
+      checkToken(token)
+        .then((user) => {
+          setUser(user);
+        })
+        .catch((err) => console.log(err));
+    }
   }, []);
 
   /********************
@@ -128,82 +142,78 @@ function App() {
   };
 
   return (
-    <div className="app">
-      <CurrentTempUnitContext.Provider
-        value={{ currentTempUnit, handleToggleSwitchChange }}>
-        <Header
-          loggedIn={loggedIn}
-          onHandleModal={handleActiveModal}
-          location={location}
-        />
-        <Switch>
-          <Route path="/profile">
-            <Profile
+    <CurrentUserContext.Provider value={user}>
+      <div className="app">
+        <CurrentTempUnitContext.Provider
+          value={{ currentTempUnit, handleToggleSwitchChange }}>
+          <Header
+            loggedIn={loggedIn}
+            onHandleModal={handleActiveModal}
+            location={location}
+          />
+          <Switch>
+            <ProtectedRoute
+              path="/profile"
+              component={Profile}
+              loggedIn={loggedIn}
               temp={temp}
               onSetActiveImage={handleSetActiveItem}
               onHandleModal={handleActiveModal}
               clothingItems={clothingItems}
+              setLoggedIn={setLoggedIn}
             />
-          </Route>
 
-          <ProtectedRoute
-            path="/profile"
-            component={Profile}
-            loggedIn={loggedIn}
-            temp={temp}
-            onSetActiveImage={handleSetActiveItem}
-            onHandleModal={handleActiveModal}
-            clothingItems={clothingItems}
-          />
+            <Route path="/">
+              <Main
+                weatherType={weatherType}
+                temp={temp}
+                onSetActiveImage={handleSetActiveItem}
+                day={day}
+                loading={loading}
+                clothingItems={clothingItems}
+              />
+            </Route>
+          </Switch>
+          <Footer />
 
-          <Route path="/">
-            <Main
-              weatherType={weatherType}
-              temp={temp}
-              onSetActiveImage={handleSetActiveItem}
-              day={day}
-              loading={loading}
-              clothingItems={clothingItems}
-            />
-          </Route>
-        </Switch>
-        <Footer />
-
-        {/* Garment Modal */}
-        {activeModal === "add-garment" && (
-          <AddItemModal
-            isOpen={true}
-            onCloseModal={handleActiveModalEmpty}
-            onAddItem={handleAddItemSubmit}></AddItemModal>
-        )}
-        {/* Item/Picture Modal */}
-        {activeModal === "item" && (
-          <ItemModal
-            item={activeItem}
-            onClose={handleUnsetActiveItem}
-            onHandleModal={handleActiveModal}></ItemModal>
-        )}
-        {/* Delete Item Modal */}
-        {activeModal === "delete-item" && (
-          <DeleteItemModal
-            item={activeItem}
-            onModalClose={handleUnsetActiveItem}
-            onDelete={handleDeleteItem}></DeleteItemModal>
-        )}
-        {/* Sign Up Modal */}
-        {activeModal === "sign-up" && (
-          <RegisterModal
-            setActiveModal={handleActiveModal}
-            onClose={handleActiveModalEmpty}></RegisterModal>
-        )}
-        {/* Sign Up Modal */}
-        {activeModal === "sign-in" && (
-          <LoginModal
-            onClose={handleActiveModalEmpty}
-            setActiveModal={handleActiveModal}></LoginModal>
-        )}
-      </CurrentTempUnitContext.Provider>
-    </div>
+          {/* Garment Modal */}
+          {activeModal === "add-garment" && (
+            <AddItemModal
+              isOpen={true}
+              onCloseModal={handleActiveModalEmpty}
+              onAddItem={handleAddItemSubmit}></AddItemModal>
+          )}
+          {/* Item/Picture Modal */}
+          {activeModal === "item" && (
+            <ItemModal
+              item={activeItem}
+              onClose={handleUnsetActiveItem}
+              onHandleModal={handleActiveModal}></ItemModal>
+          )}
+          {/* Delete Item Modal */}
+          {activeModal === "delete-item" && (
+            <DeleteItemModal
+              item={activeItem}
+              onModalClose={handleUnsetActiveItem}
+              onDelete={handleDeleteItem}></DeleteItemModal>
+          )}
+          {/* Sign Up Modal */}
+          {activeModal === "sign-up" && (
+            <RegisterModal
+              setActiveModal={handleActiveModal}
+              onClose={handleActiveModalEmpty}
+              setLoggedIn={setLoggedIn}></RegisterModal>
+          )}
+          {/* Sign Up Modal */}
+          {activeModal === "sign-in" && (
+            <LoginModal
+              onClose={handleActiveModalEmpty}
+              setActiveModal={handleActiveModal}
+              setLoggedIn={setLoggedIn}></LoginModal>
+          )}
+        </CurrentTempUnitContext.Provider>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

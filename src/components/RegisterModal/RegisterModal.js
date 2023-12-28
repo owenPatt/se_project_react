@@ -1,8 +1,8 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState } from "react";
-import { signup } from "../../utils/auth";
+import { signup, signin } from "../../utils/auth";
 
-function RegisterModal({ onClose, setActiveModal }) {
+function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
   const [password, setPassword] = useState("");
@@ -24,9 +24,21 @@ function RegisterModal({ onClose, setActiveModal }) {
     setName(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = signup(name, avatarUrl, email, password);
+
+    try {
+      // Gets the new user object
+      await signup(name, avatarUrl, email, password);
+      const loggedUser = await signin(email, password);
+
+      // Closes form
+      onClose();
+      localStorage.setItem("jwt", loggedUser.token);
+      setLoggedIn(true);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const redirectToLogin = () => {
@@ -55,6 +67,7 @@ function RegisterModal({ onClose, setActiveModal }) {
           required
         />
       </div>
+
       <div className="form__item">
         <p className="form__label">Password</p>
         <input
