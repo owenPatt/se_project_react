@@ -54,7 +54,12 @@ export const checkToken = async (token) => {
 
   if (response.ok) {
     const data = await response.json();
-    return { name: data.name, avatar: data.avatar, email: data.email };
+    return {
+      name: data.name,
+      avatar: data.avatar,
+      email: data.email,
+      _id: data._id,
+    };
   } else {
     const error = await response.json();
     throw new Error(error.message);
@@ -75,7 +80,12 @@ export const updateProfile = async (name, avatar) => {
 
   if (response.ok) {
     const data = await response.json();
-    return { name: data.name, avatar: data.avatar, email: data.email };
+    return {
+      name: data.name,
+      avatar: data.avatar,
+      email: data.email,
+      _id: data._id,
+    };
   } else {
     const error = await response.json();
     throw new Error(error.message);

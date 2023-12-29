@@ -13,6 +13,7 @@ function Main({
   day,
   loading,
   clothingItems,
+  onCardLike,
 }) {
   // Access the current temperature unit from the context.
   const currentTempUnit = useContext(CurrentTempUnitContext);
@@ -50,6 +51,7 @@ function Main({
           tempCategory={tempCategory}
           onSetActiveImage={onSetActiveImage}
           items={clothingItems}
+          onCardLike={onCardLike}
         />
       </div>
     </main>

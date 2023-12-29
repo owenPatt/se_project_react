@@ -13,6 +13,7 @@
   width: 100%;
   margin-top: 15px;
   justify-content: center;
+  gap: 10px;
 }
 
 .item-card__label-text {
@@ -22,6 +23,16 @@
   border-radius: 4px;
   margin: 0;
   padding: 2px 12px;
+}
+
+.item-card__like-icon {
+  width: 18px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.item-card__like-icon_invisible {
+  display: none;
 }
 
 .item-card__image {

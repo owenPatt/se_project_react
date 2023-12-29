@@ -60,6 +60,8 @@ function Profile({
             tempCategory={tempCategory}
             onSetActiveImage={onSetActiveImage}
             items={clothingItems}
+            showLikeButton={false}
+            showAllItems={false}
           />
         </div>
       </div>

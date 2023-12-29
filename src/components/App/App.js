@@ -81,13 +81,42 @@ function App() {
           setUser(user);
           setLoggedIn(true);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.error(err));
+    } else {
+      setUser({});
+      setLoggedIn(false);
     }
-  }, []);
+  }, [loggedIn]);
 
   /********************
    * HANDLE FUNCTIONS *
    ********************/
+
+  // Like Button Handler
+  const handleLikeClick = (_id, isLiked) => {
+    // Check if this card is now liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        itemApi
+          // the first argument is the card's id
+          .addCardLike(_id)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((c) => (c._id === _id ? updatedCard : c))
+            );
+          })
+          .catch((err) => console.error(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        itemApi
+          // the first argument is the card's id
+          .removeCardLike(_id)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((c) => (c._id === _id ? updatedCard : c))
+            );
+          })
+          .catch((err) => console.error(err));
+  };
 
   // Opens modal that is given
   const handleActiveModal = (modalName) => {
@@ -179,6 +208,7 @@ function App() {
                 day={day}
                 loading={loading}
                 clothingItems={clothingItems}
+                onCardLike={handleLikeClick}
               />
             </Route>
           </Switch>

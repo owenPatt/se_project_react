@@ -1,8 +1,13 @@
 class ItemApi {
-  constructor() {
+  constructor(token) {
+    this._token = token;
     this._baseUrl = "http://localhost:3001";
     this._headers = {
       "content-type": "application/json",
+    };
+    this._secHeaders = {
+      "content-type": "application/json",
+      Authorization: `Bearer ${this._token}`,
     };
   }
 
@@ -21,13 +26,23 @@ class ItemApi {
     }).then(this._checkResponse);
   };
 
+  _secureRequest = (url, method, body) => {
+    const token = localStorage.getItem("jwt");
+    this._secHeaders.Authorization = `Bearer ${token}`;
+    return fetch(url, {
+      method: method,
+      headers: this._secHeaders,
+      body: JSON.stringify(body),
+    }).then(this._checkResponse);
+  };
+
   getItems = () => {
     //Gets the initial cards
     return this._request(`${this._baseUrl}/items`, "GET");
   };
 
   postItem = ({ name, imageUrl, weather }) => {
-    return this._request(`${this._baseUrl}/items`, "POST", {
+    return this._secureRequest(`${this._baseUrl}/items`, "POST", {
       name: name,
       imageUrl: imageUrl,
       weather: weather,
@@ -35,7 +50,20 @@ class ItemApi {
   };
 
   deleteItem = ({ _id }) => {
-    return this._request(`${this._baseUrl}/items/${_id}`, "DELETE");
+    return this._secureRequest(`${this._baseUrl}/items/${_id}`, "DELETE");
+  };
+
+  addCardLike = (_id) => {
+    return this._secureRequest(`${this._baseUrl}/items/${_id}/likes`, "PUT");
+  };
+
+  removeCardLike = (_id) => {
+    return this._secureRequest(`${this._baseUrl}/items/${_id}/likes`, "DELETE");
+  };
+
+  updateToken = (token) => {
+    this.token = token;
+    this._secHeaders.Authorization = `Bearer ${token}`;
   };
 }
 

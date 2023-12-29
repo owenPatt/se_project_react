@@ -65,6 +65,10 @@
   cursor: pointer;
 }
 
+.item__delete-button_hidden {
+  display: none;
+}
+
 @media screen and (max-width: 780px) {
   .item-modal__content {
     max-width: 343px;

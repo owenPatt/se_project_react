@@ -1,6 +1,16 @@
 import ItemCard from "../ItemCard/ItemCard";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ItemsList({ tempCategory, onSetActiveImage, items }) {
+function ItemsList({
+  tempCategory,
+  onSetActiveImage,
+  items,
+  onCardLike,
+  showLikeButton = true,
+  showAllItems = true,
+}) {
+  const user = useContext(CurrentUserContext);
   const checkItems = () => {
     if (!Array.isArray(items) && items !== undefined) {
       return false;
@@ -16,14 +26,24 @@ function ItemsList({ tempCategory, onSetActiveImage, items }) {
               console.error(`Item ${item} is not created correctly`);
               return false;
             }
-            return item.weather.toLowerCase() === tempCategory;
+
+            if (showAllItems) {
+              return item.weather.toLowerCase() === tempCategory && item.owner;
+            }
+
+            return (
+              item.weather.toLowerCase() === tempCategory &&
+              item.owner === user._id
+            );
           })
           .map((item) => {
             return (
               <ItemCard
                 key={item._id}
                 onSetActiveImage={onSetActiveImage}
-                item={item}></ItemCard>
+                item={item}
+                onCardLike={onCardLike}
+                showLikeButton={showLikeButton}></ItemCard>
             );
           })}
     </>

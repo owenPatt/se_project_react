@@ -21,7 +21,7 @@ function WeatherCard({ weatherTemp = "", loading, day, type }) {
           ? "Loading..."
           : `${weatherTemp}°${currentTempUnit.currentTempUnit}`}
       </p>
-      <img className="weather__image" src={imageUrl} />
+      <img className="weather__image" src={imageUrl} alt="Weather" />
     </div>
   );
 }

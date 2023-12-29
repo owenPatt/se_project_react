@@ -1,11 +1,41 @@
 import "./ItemCard.css";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ItemCard({ item, onSetActiveImage }) {
+function ItemCard({
+  item,
+  onSetActiveImage,
+  onCardLike,
+  showLikeButton = true,
+}) {
+  const user = useContext(CurrentUserContext);
+
+  let isLiked = item.likes.some((id) => id === user._id);
+  let likeButtonClass = "item-card__like-icon_invisible";
+  if (user.name && showLikeButton) {
+    likeButtonClass = "";
+  }
+
+  const handleLikeClick = () => {
+    onCardLike(item._id, isLiked);
+    isLiked = !isLiked;
+  };
+
   return (
     <div className="item-card">
       <div className="item-card__label">
         {/* Display the item name. */}
         <p className="item-card__label-text">{item.name}</p>
+        <img
+          className={`item-card__like-icon ${likeButtonClass}`}
+          src={
+            isLiked
+              ? "./images/liked_like_button.svg"
+              : "./images/Like_button.svg"
+          }
+          alt="icon"
+          onClick={handleLikeClick}
+        />
       </div>
       {/* Image for the item card. */}
       <img
