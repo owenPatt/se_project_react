@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import "./Profile.css";
 import getTempCategory from "../../utils/getTemperatureCategory";
 import ItemsList from "../ItemsList/ItemsList";
 import { useHistory } from "react-router-dom";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Profile({
   temp,
@@ -9,7 +11,9 @@ function Profile({
   onHandleModal,
   clothingItems,
   setLoggedIn,
+  openEditModal,
 }) {
+  const user = useContext(CurrentUserContext);
   const tempCategory = getTempCategory(temp);
   // Log out function
   const history = useHistory();
@@ -25,13 +29,18 @@ function Profile({
       <div className="profile__left-side">
         <div className="profile__user">
           <img
-            src="./images/avatar.png"
+            src={user.avatar ? user.avatar : "./images/avatar.png"}
             alt="Avatar"
             className="profile__avatar"
           />
-          <p className="profile__name">Terrence Tegegne</p>
+          <p className="profile__name">
+            {user.name ? user.name : "Loading..."}
+          </p>
         </div>
-        <p className="profile__log-out" onClick={handleLogOut}>
+        <p className="profile__text-button" onClick={openEditModal}>
+          Change profile data
+        </p>
+        <p className="profile__text-button" onClick={handleLogOut}>
           Log Out
         </p>
       </div>

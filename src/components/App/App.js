@@ -18,6 +18,7 @@ import LoginModal from "../LoginModal/LoginModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { checkToken } from "../../utils/auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import ChangeProfileModal from "../ChangeProfileModal/ChangeProfileModal";
 
 // Define the main App component.
 function App() {
@@ -78,6 +79,7 @@ function App() {
       checkToken(token)
         .then((user) => {
           setUser(user);
+          setLoggedIn(true);
         })
         .catch((err) => console.log(err));
     }
@@ -101,6 +103,11 @@ function App() {
   const handleSetActiveItem = (item) => {
     setActiveItem(item);
     handleActiveModal("item");
+  };
+
+  // Used when picture Modal opens
+  const handleSetChangeProfile = () => {
+    handleActiveModal("change-profile");
   };
 
   // Used when picture modal closes
@@ -161,6 +168,7 @@ function App() {
               onHandleModal={handleActiveModal}
               clothingItems={clothingItems}
               setLoggedIn={setLoggedIn}
+              openEditModal={handleSetChangeProfile}
             />
 
             <Route path="/">
@@ -210,6 +218,11 @@ function App() {
               onClose={handleActiveModalEmpty}
               setActiveModal={handleActiveModal}
               setLoggedIn={setLoggedIn}></LoginModal>
+          )}
+          {activeModal === "change-profile" && (
+            <ChangeProfileModal
+              onClose={handleActiveModalEmpty}
+              handleUser={setUser}></ChangeProfileModal>
           )}
         </CurrentTempUnitContext.Provider>
       </div>

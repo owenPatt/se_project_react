@@ -60,3 +60,24 @@ export const checkToken = async (token) => {
     throw new Error(error.message);
   }
 };
+
+// Function to update the user profileexport const updateProfile = async (token, name, avatar) => {
+export const updateProfile = async (name, avatar) => {
+  const token = localStorage.getItem("jwt");
+  const response = await fetch(baseUrl + "/users/me", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    return { name: data.name, avatar: data.avatar, email: data.email };
+  } else {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+};

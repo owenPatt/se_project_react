@@ -1,8 +1,11 @@
+import { useContext } from "react";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({ onHandleModal, location, loggedIn }) {
+  const user = useContext(CurrentUserContext);
   // Get the current date for header__date
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -62,10 +65,10 @@ function Header({ onHandleModal, location, loggedIn }) {
             {/* User information section. */}
             <div className="header__user">
               <Link to="/profile" className="header__name">
-                Terrence Tegegne
+                {user.name ? user.name : "Loading..."}
               </Link>
               <img
-                src="./images/avatar.png"
+                src={user.avatar ? user.avatar : "./images/avatar.png"}
                 alt="Avatar"
                 className="header__avatar"
               />
