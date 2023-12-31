@@ -188,17 +188,15 @@ function App() {
             location={location}
           />
           <Switch>
-            <ProtectedRoute
-              path="/profile"
-              component={Profile}
-              loggedIn={loggedIn}
-              temp={temp}
-              onSetActiveImage={handleSetActiveItem}
-              onHandleModal={handleActiveModal}
-              clothingItems={clothingItems}
-              setLoggedIn={setLoggedIn}
-              openEditModal={handleSetChangeProfile}
-            />
+            <ProtectedRoute path="/profile" loggedIn={loggedIn}>
+              <Profile
+                temp={temp}
+                onSetActiveImage={handleSetActiveItem}
+                onHandleModal={handleActiveModal}
+                clothingItems={clothingItems}
+                setLoggedIn={setLoggedIn}
+                openEditModal={handleSetChangeProfile}></Profile>
+            </ProtectedRoute>
 
             <Route path="/">
               <Main
