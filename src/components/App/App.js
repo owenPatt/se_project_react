@@ -30,7 +30,7 @@ function App() {
   const [day, setDay] = useState(true);
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
-  const [currentTempUnit, setCurrentTempUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
   const [clothingItems, setClothingItems] = useState({});
   const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
   const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
@@ -147,7 +147,7 @@ function App() {
 
   // Function to toggle the temperature unit between Fahrenheit and Celsius.
   const handleToggleSwitchChange = () => {
-    setCurrentTempUnit(currentTempUnit === "F" ? "C" : "F");
+    setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
   const handleAddItemSubmit = (item) => {
@@ -181,7 +181,7 @@ function App() {
     <CurrentUserContext.Provider value={user}>
       <div className="app">
         <CurrentTemperatureUnitContext.Provider
-          value={{ currentTempUnit, handleToggleSwitchChange }}>
+          value={{ currentTemperatureUnit, handleToggleSwitchChange }}>
           <Header
             loggedIn={loggedIn}
             onHandleModal={handleActiveModal}
