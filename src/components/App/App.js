@@ -11,7 +11,7 @@ import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
 import ItemApi from "../../utils/api";
 import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
-import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
@@ -180,7 +180,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={user}>
       <div className="app">
-        <CurrentTempUnitContext.Provider
+        <CurrentTemperatureUnitContext.Provider
           value={{ currentTempUnit, handleToggleSwitchChange }}>
           <Header
             loggedIn={loggedIn}
@@ -252,7 +252,7 @@ function App() {
               onClose={handleActiveModalEmpty}
               handleUser={setUser}></ChangeProfileModal>
           )}
-        </CurrentTempUnitContext.Provider>
+        </CurrentTemperatureUnitContext.Provider>
       </div>
     </CurrentUserContext.Provider>
   );
