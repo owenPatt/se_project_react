@@ -11,7 +11,7 @@ function ToggleSwitch({}) {
   return (
     <label className="toggle-switch">
       <input
-        value={currentTempUnit.currentTempUnit}
+        value={currentTempUnit.currentTemperatureUnit}
         className="toggle-switch__input"
         type="checkbox"
         onChange={currentTempUnit.handleToggleSwitchChange} // Trigger the toggle function on change.
