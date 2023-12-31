@@ -19,7 +19,7 @@ function Main({
   const currentTempUnit = useContext(CurrentTempUnitContext);
 
   const getConvertedTemp = () => {
-    if (currentTempUnit.currentTempUnit === "C") {
+    if (currentTempUnit.currentTemperatureUnit === "C") {
       // Convert Fahrenheit to Celsius.
       return Math.round(((temp - 32) * 5) / 9);
     }
@@ -42,7 +42,7 @@ function Main({
         {loading
           ? "Loading..."
           : `Today is ${getConvertedTemp()}°${
-              currentTempUnit.currentTempUnit
+              currentTempUnit.currentTemperatureUnit
             } / You may want to wear:`}
       </p>
       <div className="main__card-container">

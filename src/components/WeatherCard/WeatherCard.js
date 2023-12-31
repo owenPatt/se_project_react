@@ -19,7 +19,7 @@ function WeatherCard({ weatherTemp = "", loading, day, type }) {
       <p className="weather__temp">
         {loading
           ? "Loading..."
-          : `${weatherTemp}°${currentTempUnit.currentTempUnit}`}
+          : `${weatherTemp}°${currentTempUnit.currentTemperatureUnit}`}
       </p>
       <img className="weather__image" src={imageUrl} alt="Weather" />
     </div>
