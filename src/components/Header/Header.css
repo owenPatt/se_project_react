@@ -60,9 +60,23 @@
 }
 
 .header__avatar {
+  position: relative;
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header__avatar::before {
+  content: attr(data-initial);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  color: white;
 }
 
 .header__open {

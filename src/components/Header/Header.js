@@ -6,6 +6,11 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({ onHandleModal, location, loggedIn }) {
   const user = useContext(CurrentUserContext);
+
+  const avatar = user.avatar ? user.avatar : "./images/default-avatar.png";
+  const name = user.name ? user.name : "Loading...";
+  const initial = user.avatar ? "" : name[0].toUpperCase();
+
   // Get the current date for header__date
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -67,10 +72,10 @@ function Header({ onHandleModal, location, loggedIn }) {
               <Link to="/profile" className="header__name">
                 {user.name ? user.name : "Loading..."}
               </Link>
-              <img
-                src={user.avatar ? user.avatar : "./images/avatar.png"}
-                alt="Avatar"
+              <div
                 className="header__avatar"
+                style={{ backgroundImage: `url(${avatar})` }}
+                data-initial={initial}
               />
             </div>
           </div>
