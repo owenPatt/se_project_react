@@ -1,0 +1,25 @@
+.sidebar__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.sidebar__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.sidebar__name {
+  margin: 0;
+  font-size: 20px;
+}
+
+.sidebar__text-button {
+  font-size: 20px;
+}
+
+.sidebar__text-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
