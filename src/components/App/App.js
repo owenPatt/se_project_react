@@ -84,7 +84,7 @@ function App() {
         .catch((err) => console.error(err));
     } else {
       setUser({});
-      setLoggedIn(true);
+      setLoggedIn(false);
     }
   }, [loggedIn]);
 
