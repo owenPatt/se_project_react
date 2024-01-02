@@ -22,19 +22,11 @@ function ItemsList({
       {checkItems() &&
         items
           .filter((item) => {
-            if (!item.weather || !item.imageUrl || !item.name) {
-              console.error(`Item ${item} is not created correctly`);
-              return false;
-            }
-
             if (showAllItems) {
               return item.weather.toLowerCase() === tempCategory && item.owner;
             }
 
-            return (
-              item.weather.toLowerCase() === tempCategory &&
-              item.owner === user._id
-            );
+            return item.owner === user._id;
           })
           .map((item) => {
             return (
