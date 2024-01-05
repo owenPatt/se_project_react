@@ -35,7 +35,7 @@ function ChangeProfileModal({ onClose, handleUser }) {
       onClose={onClose}
       onSubmit={handleSubmit}>
       <div className="form__item">
-        <p className="form__label">Name</p>
+        <label className="form__label">Name</label>
         <input
           placeholder="Name"
           name="name"
@@ -48,7 +48,7 @@ function ChangeProfileModal({ onClose, handleUser }) {
       </div>
 
       <div className="form__item">
-        <p className="form__label">Avatar URL</p>
+        <label className="form__label">Avatar URL</label>
         <input
           placeholder="URL"
           name="avatarUrl"

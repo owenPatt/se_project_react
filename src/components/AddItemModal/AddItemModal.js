@@ -42,7 +42,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       onClose={onCloseModal}
       onSubmit={handleSubmit}>
       <div className="form__item">
-        <p className="form__label">Name</p>
+        <label className="form__label">Name</label>
         <input
           placeholder="Name"
           className="form__input-text"
@@ -55,7 +55,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         />
       </div>
       <div className="form__item">
-        <p className="form__label">Image</p>
+        <label className="form__label">Image</label>
         <input
           placeholder="Image"
           name="link"

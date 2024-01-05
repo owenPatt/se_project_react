@@ -55,7 +55,7 @@ function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
       secFunc="or Log in"
       secFuncOnClick={redirectToLogin}>
       <div className="form__item">
-        <p className="form__label">Email</p>
+        <label className="form__label">Email</label>
         <input
           placeholder="Email"
           className="form__input-text"
@@ -69,7 +69,7 @@ function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
       </div>
 
       <div className="form__item">
-        <p className="form__label">Password</p>
+        <label className="form__label">Password</label>
         <input
           placeholder="Password"
           name="password"
@@ -81,7 +81,7 @@ function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
       </div>
 
       <div className="form__item">
-        <p className="form__label">Name</p>
+        <label className="form__label">Name</label>
         <input
           placeholder="Name"
           name="name"
@@ -93,7 +93,7 @@ function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
       </div>
 
       <div className="form__item">
-        <p className="form__label">Avatar URL</p>
+        <label className="form__label">Avatar URL</label>
         <input
           placeholder="URL"
           name="avatarUrl"
