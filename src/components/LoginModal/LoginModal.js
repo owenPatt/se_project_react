@@ -19,10 +19,8 @@ function LoginModal({ onClose, setActiveModal, setLoggedIn }) {
 
     try {
       const loggedUser = await signin(email, password);
-
-      // Closes form
-      onClose();
       localStorage.setItem("jwt", loggedUser.token);
+      onClose();
       setLoggedIn(true);
     } catch (error) {
       console.error(error);

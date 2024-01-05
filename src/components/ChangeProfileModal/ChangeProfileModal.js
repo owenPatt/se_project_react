@@ -18,9 +18,13 @@ function ChangeProfileModal({ onClose, handleUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = await updateProfile(name, avatarUrl);
-    handleUser(newUser);
-    onClose();
+    try {
+      const newUser = await updateProfile(name, avatarUrl);
+      handleUser(newUser);
+      onClose();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -7,7 +7,6 @@ function ItemsList({
   onSetActiveImage,
   items,
   onCardLike,
-  showLikeButton = true,
   showAllItems = true,
 }) {
   const user = useContext(CurrentUserContext);
@@ -34,8 +33,7 @@ function ItemsList({
                 key={item._id}
                 onSetActiveImage={onSetActiveImage}
                 item={item}
-                onCardLike={onCardLike}
-                showLikeButton={showLikeButton}></ItemCard>
+                onCardLike={onCardLike}></ItemCard>
             );
           })}
     </>

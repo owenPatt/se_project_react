@@ -25,8 +25,13 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       weather: tempType,
       imageUrl: imageSrc,
     };
-    onAddItem(newItem);
-    onCloseModal();
+    onAddItem(newItem)
+      .then(() => {
+        onCloseModal();
+      })
+      .catch((e) => {
+        console.error(e);
+      });
   };
 
   return (

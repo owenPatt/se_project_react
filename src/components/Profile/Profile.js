@@ -10,6 +10,7 @@ function Profile({
   clothingItems,
   setLoggedIn,
   openEditModal,
+  onCardLike,
 }) {
   // Log out function
   const history = useHistory();
@@ -27,7 +28,8 @@ function Profile({
         temp={temp}
         onSetActiveImage={onSetActiveImage}
         onHandleModal={onHandleModal}
-        clothingItems={clothingItems}></ClothesSection>
+        clothingItems={clothingItems}
+        onCardLike={onCardLike}></ClothesSection>
     </div>
   );
 }

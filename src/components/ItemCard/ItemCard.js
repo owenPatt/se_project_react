@@ -2,17 +2,12 @@ import "./ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ItemCard({
-  item,
-  onSetActiveImage,
-  onCardLike,
-  showLikeButton = true,
-}) {
+function ItemCard({ item, onSetActiveImage, onCardLike }) {
   const user = useContext(CurrentUserContext);
 
   let isLiked = item.likes.some((id) => id === user._id);
   let likeButtonClass = "item-card__like-icon_invisible";
-  if (user.name && showLikeButton) {
+  if (user.name) {
     likeButtonClass = "";
   }
 

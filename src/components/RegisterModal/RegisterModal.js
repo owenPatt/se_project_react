@@ -32,9 +32,9 @@ function RegisterModal({ onClose, setActiveModal, setLoggedIn }) {
       await signup(name, avatarUrl, email, password);
       const loggedUser = await signin(email, password);
 
+      localStorage.setItem("jwt", loggedUser.token);
       // Closes form
       onClose();
-      localStorage.setItem("jwt", loggedUser.token);
       setLoggedIn(true);
     } catch (error) {
       console.error(error);

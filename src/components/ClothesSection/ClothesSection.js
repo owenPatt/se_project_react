@@ -8,6 +8,7 @@ const ClothesSection = ({
   onSetActiveImage,
   clothingItems,
   onHandleModal,
+  onCardLike,
 }) => {
   const tempCategory = getTempCategory(temp);
   return (
@@ -27,8 +28,8 @@ const ClothesSection = ({
           tempCategory={tempCategory}
           onSetActiveImage={onSetActiveImage}
           items={clothingItems}
-          showLikeButton={false}
           showAllItems={false}
+          onCardLike={onCardLike}
         />
       </div>
     </div>

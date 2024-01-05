@@ -164,7 +164,7 @@ function App() {
   const handleDeleteItem = (deletedItem) => {
     itemApi
       .deleteItem(deletedItem)
-      .then((res) => {
+      .then(() => {
         setClothingItems(
           clothingItems.filter((item) => {
             return item !== deletedItem;
@@ -195,7 +195,8 @@ function App() {
                 onHandleModal={handleActiveModal}
                 clothingItems={clothingItems}
                 setLoggedIn={setLoggedIn}
-                openEditModal={handleSetChangeProfile}></Profile>
+                openEditModal={handleSetChangeProfile}
+                onCardLike={handleLikeClick}></Profile>
             </ProtectedRoute>
 
             <Route path="/">
