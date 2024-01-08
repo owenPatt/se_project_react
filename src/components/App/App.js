@@ -30,7 +30,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [location, setLocation] = useState("loading");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F"); // Current temperature unit (Fahrenheit or Celsius)
-  const [clothingItems, setClothingItems] = useState({});
+  const [clothingItems, setClothingItems] = useState([]);
   const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
   const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
 

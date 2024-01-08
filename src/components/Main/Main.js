@@ -54,6 +54,7 @@ function Main({
           items={clothingItems}
           onCardLike={onCardLike}
         />
+        <ItemCard show={false} />
       </div>
     </main>
   );
