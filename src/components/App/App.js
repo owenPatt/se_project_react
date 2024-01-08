@@ -16,7 +16,7 @@ import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { checkToken } from "../../utils/auth";
+import * as auth from "../../utils/auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ChangeProfileModal from "../ChangeProfileModal/ChangeProfileModal";
 
@@ -35,7 +35,7 @@ function App() {
   const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
   const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
 
-  // Create an instance of the ForecastWeatherApi class.
+  // Create an instance of the ForecastWeatherApi class
   const forecastWeatherApi = new ForecastWeatherApi();
 
   // Create an instance of the ItemApi class
@@ -52,9 +52,7 @@ function App() {
         setWeatherType(forecastWeatherApi.getWeatherType(weather));
         setLocation(weather.name);
       })
-      .catch((e) => {
-        console.error(e);
-      })
+      .catch(console.error)
       .finally(() => {
         // Set loading state to false when the data is fetched.
         setLoading(false);
@@ -67,26 +65,42 @@ function App() {
       .then((items) => {
         setClothingItems(items);
       })
-      .catch((e) => {
-        console.error(e);
-      });
+      .catch(console.error);
   }, []);
 
   // Checks token validity
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
-      checkToken(token)
+      auth
+        .checkToken(token)
         .then((user) => {
           setUser(user);
           setLoggedIn(true);
         })
-        .catch((err) => console.error(err));
+        .catch(console.error);
     } else {
       setUser({});
       setLoggedIn(false);
     }
   }, [loggedIn]);
+
+  // Listens for the escape key to close modals
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") {
+        handleModalClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModal]);
 
   /********************
    * HANDLE FUNCTIONS *
@@ -105,7 +119,7 @@ function App() {
               cards.map((c) => (c._id === _id ? updatedCard : c))
             );
           })
-          .catch((err) => console.error(err))
+          .catch(console.error)
       : // if not, send a request to remove the user's id from the card's likes array
         itemApi
           // the first argument is the card's id
@@ -115,7 +129,7 @@ function App() {
               cards.map((c) => (c._id === _id ? updatedCard : c))
             );
           })
-          .catch((err) => console.error(err));
+          .catch(console.error);
   };
 
   // Opens modal that is given
@@ -124,7 +138,7 @@ function App() {
   };
 
   // Function to close the active modal dialog.
-  const handleActiveModalEmpty = () => {
+  const handleModalClose = () => {
     setActiveModal("");
   };
 
@@ -142,7 +156,7 @@ function App() {
   // Used when picture modal closes
   const handleUnsetActiveItem = () => {
     setActiveItem({});
-    handleActiveModalEmpty();
+    handleModalClose();
   };
 
   // Function to toggle the temperature unit between Fahrenheit and Celsius.
@@ -150,17 +164,17 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
+  // Function to add a new item to the database
   const handleAddItemSubmit = (item) => {
     itemApi
       .postItem(item)
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
       })
-      .catch((e) => {
-        console.error(e);
-      });
+      .catch(console.error);
   };
 
+  // Function to delete an item from the database
   const handleDeleteItem = (deletedItem) => {
     itemApi
       .deleteItem(deletedItem)
@@ -170,11 +184,41 @@ function App() {
             return item !== deletedItem;
           })
         );
+        handleModalClose();
       })
-      .catch((e) => {
-        console.error(e);
-      });
-    handleActiveModalEmpty();
+      .catch(console.error);
+  };
+
+  // Function to update the user profile
+  const handleUpdateUser = (newUser) => {
+    auth
+      .updateProfile(newUser.name, newUser.avatar)
+      .then((newUser) => {
+        setUser(newUser);
+        handleModalClose();
+      })
+      .catch(console.error);
+  };
+
+  const handleLogin = (user) => {
+    auth
+      .signin(user.email, user.password)
+      .then((loggedUser) => {
+        localStorage.setItem("jwt", loggedUser.token);
+        setLoggedIn(true);
+        handleModalClose();
+      })
+      .catch(console.error);
+  };
+
+  const handleCreateUser = (user) => {
+    auth
+      .signup(user.name, user.avatarUrl, user.email, user.password)
+      .then(() => {
+        handleModalClose();
+        auth.signin(user.email, user.password);
+      })
+      .then(() => handleLogin(user));
   };
 
   return (
@@ -217,7 +261,7 @@ function App() {
           {activeModal === "add-garment" && (
             <AddItemModal
               isOpen={true}
-              onCloseModal={handleActiveModalEmpty}
+              onCloseModal={handleModalClose}
               onAddItem={handleAddItemSubmit}></AddItemModal>
           )}
           {/* Item/Picture Modal */}
@@ -238,20 +282,20 @@ function App() {
           {activeModal === "sign-up" && (
             <RegisterModal
               setActiveModal={handleActiveModal}
-              onClose={handleActiveModalEmpty}
-              setLoggedIn={setLoggedIn}></RegisterModal>
+              onClose={handleModalClose}
+              onSubmit={handleCreateUser}></RegisterModal>
           )}
           {/* Sign Up Modal */}
           {activeModal === "sign-in" && (
             <LoginModal
-              onClose={handleActiveModalEmpty}
+              onClose={handleModalClose}
               setActiveModal={handleActiveModal}
-              setLoggedIn={setLoggedIn}></LoginModal>
+              onSubmit={handleLogin}></LoginModal>
           )}
           {activeModal === "change-profile" && (
             <ChangeProfileModal
-              onClose={handleActiveModalEmpty}
-              handleUser={setUser}></ChangeProfileModal>
+              onClose={handleModalClose}
+              onSubmit={handleUpdateUser}></ChangeProfileModal>
           )}
         </CurrentTemperatureUnitContext.Provider>
       </div>

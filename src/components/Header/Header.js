@@ -1,11 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState, useRef } from "react";
 import "./Header.css";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({ onHandleModal, location, loggedIn }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const user = useContext(CurrentUserContext);
+
+  const rightSideRef = useRef(null);
 
   const avatar = user.avatar ? user.avatar : "./images/default-avatar.png";
   const name = user.name ? user.name : "Loading...";
@@ -17,24 +21,21 @@ function Header({ onHandleModal, location, loggedIn }) {
     day: "numeric",
   });
 
-  // Access the right-side element to handle expansion and collapse.
-  const rightSide = document.querySelector(".header__right-side");
-
   // Functions to expand and collapse functions
   const handleExpand = () => {
-    rightSide.classList.add("header__right-side_active");
+    setIsExpanded(true);
     document.addEventListener("click", handleUnfocus);
   };
   const handleCollapse = () => {
-    rightSide.classList.remove("header__right-side_active");
+    setIsExpanded(false);
     document.removeEventListener("click", handleUnfocus);
   };
 
   // Used to check when expander is unfocused
   const handleUnfocus = (e) => {
     if (
-      e.target === rightSide ||
-      rightSide.contains(e.target) ||
+      e.target === rightSideRef.current ||
+      rightSideRef.current.contains(e.target) ||
       e.target.classList.contains("header__open")
     ) {
       return;
@@ -43,7 +44,7 @@ function Header({ onHandleModal, location, loggedIn }) {
   };
 
   return (
-    <div className="header">
+    <header className="header">
       {/* Left side of the header with logo and date. */}
       <div className="header__left-side">
         <Link to="/">
@@ -54,7 +55,11 @@ function Header({ onHandleModal, location, loggedIn }) {
         </p>
       </div>
       {/* Right side of the header with various elements. */}
-      <div className="header__right-side">
+      <div
+        className={`header__right-side ${
+          isExpanded ? "header__right-side_active" : ""
+        }`}
+        ref={rightSideRef}>
         <ToggleSwitch />
         {/* Add Garment button */}
         {loggedIn ? (
@@ -108,7 +113,7 @@ function Header({ onHandleModal, location, loggedIn }) {
         className="header__open"
         onClick={handleExpand}
       />
-    </div>
+    </header>
   );
 }
 

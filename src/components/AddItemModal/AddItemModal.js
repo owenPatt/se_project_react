@@ -42,12 +42,17 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       onClose={onCloseModal}
       onSubmit={handleSubmit}>
       <div className="form__item">
-        <label className="form__label">Name</label>
+        <label className="form__label" htmlFor="name">
+          Name
+        </label>
         <input
           placeholder="Name"
           className="form__input-text"
           type="text"
           name="name"
+          id="name"
+          value={name}
+          autoComplete="name"
           minLength={"1"}
           maxLength={"30"}
           onChange={handleNameChange}
@@ -55,10 +60,13 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         />
       </div>
       <div className="form__item">
-        <label className="form__label">Image</label>
+        <label className="form__label" htmlFor="image">
+          Image
+        </label>
         <input
           placeholder="Image"
           name="link"
+          id="image"
           className="form__input-text"
           type="url"
           onChange={handleImageSrcChange}
@@ -76,7 +84,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             onChange={handleTempTypeChange}
             required
           />
-          <p className="form__label-radio">Hot</p>
+          <span className="form__label-radio">Hot</span>
         </label>
         <label className="form__radio">
           <input
@@ -87,7 +95,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             onChange={handleTempTypeChange}
             required
           />
-          <p className="form__label-radio">Warm</p>
+          <span className="form__label-radio">Warm</span>
         </label>
         <label className="form__radio">
           <input
@@ -98,7 +106,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
             onChange={handleTempTypeChange}
             required
           />
-          <p className="form__label-radio">Cold</p>
+          <span className="form__label-radio">Cold</span>
         </label>
       </div>
     </ModalWithForm>

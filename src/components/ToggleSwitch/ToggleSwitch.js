@@ -4,7 +4,7 @@ import "./ToggleSwitch.css";
 // Import the CurrentTempUnitContext to access the current temperature unit and toggle function.
 import CurrentTempUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-function ToggleSwitch({}) {
+function ToggleSwitch() {
   // Access the current temperature unit and toggle function from the context
   const currentTempUnit = useContext(CurrentTempUnitContext);
 
@@ -13,6 +13,7 @@ function ToggleSwitch({}) {
       <input
         value={currentTempUnit.currentTemperatureUnit}
         className="toggle-switch__input"
+        name="toggle-switch"
         type="checkbox"
         onChange={currentTempUnit.handleToggleSwitchChange} // Trigger the toggle function on change.
       />

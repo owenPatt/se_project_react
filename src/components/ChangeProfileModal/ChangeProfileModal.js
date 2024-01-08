@@ -1,9 +1,8 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useState, useContext } from "react";
-import { updateProfile } from "../../utils/auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ChangeProfileModal({ onClose, handleUser }) {
+function ChangeProfileModal({ onClose, onSubmit }) {
   const currentUser = useContext(CurrentUserContext);
   const [avatarUrl, setAvatarUrl] = useState(currentUser.avatar);
   const [name, setName] = useState(currentUser.name);
@@ -18,13 +17,7 @@ function ChangeProfileModal({ onClose, handleUser }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const newUser = await updateProfile(name, avatarUrl);
-      handleUser(newUser);
-      onClose();
-    } catch (error) {
-      console.error(error);
-    }
+    onSubmit({ name, avatar: avatarUrl });
   };
 
   return (

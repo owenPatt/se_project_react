@@ -12,8 +12,9 @@ function ItemCard({ item, onSetActiveImage, onCardLike }) {
   }
 
   const handleLikeClick = () => {
-    onCardLike(item._id, isLiked);
-    isLiked = !isLiked;
+    onCardLike(item._id, isLiked).then(() => {
+      isLiked = !isLiked;
+    });
   };
 
   return (
