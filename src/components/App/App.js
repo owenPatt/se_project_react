@@ -7,8 +7,7 @@ import Footer from "../Footer/Footer";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
 import ItemModal from "../ItemModal/ItemModal";
-import ForecastWeatherApi from "../../utils/ForecastWeatherApi";
-import ItemApi from "../../utils/api";
+import Api from "../../utils/api";
 import Profile from "../Profile/Profile";
 import { useEffect, useState } from "react";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
@@ -35,21 +34,18 @@ function App() {
   const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
   const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
 
-  // Create an instance of the ForecastWeatherApi class
-  const forecastWeatherApi = new ForecastWeatherApi();
-
-  // Create an instance of the ItemApi class
-  const itemApi = new ItemApi();
+  // Create an instance of the Api class
+  const api = new Api();
 
   // Use the useEffect hook to fetch weather data when the component mounts.
   useEffect(() => {
-    forecastWeatherApi
+    api
       .getForecastWeather()
       .then((weather) => {
         // Update state with weather data.
-        setDay(forecastWeatherApi.getTime(weather));
+        setDay(api.getTime(weather));
         setTemp(Math.round(weather.main.temp));
-        setWeatherType(forecastWeatherApi.getWeatherType(weather));
+        setWeatherType(api.getWeatherType(weather));
         setLocation(weather.name);
       })
       .catch(console.error)
@@ -60,7 +56,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    itemApi
+    api
       .getItems()
       .then((items) => {
         setClothingItems(items);
@@ -111,23 +107,25 @@ function App() {
     // Check if this card is now liked
     !isLiked
       ? // if so, send a request to add the user's id to the card's likes array
-        itemApi
+        api
           // the first argument is the card's id
           .addCardLike(_id)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((c) => (c._id === _id ? updatedCard : c))
             );
+            return true;
           })
           .catch(console.error)
       : // if not, send a request to remove the user's id from the card's likes array
-        itemApi
+        api
           // the first argument is the card's id
           .removeCardLike(_id)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((c) => (c._id === _id ? updatedCard : c))
             );
+            return true;
           })
           .catch(console.error);
   };
@@ -166,7 +164,7 @@ function App() {
 
   // Function to add a new item to the database
   const handleAddItemSubmit = (item) => {
-    itemApi
+    api
       .postItem(item)
       .then((res) => {
         setClothingItems([res, ...clothingItems]);
@@ -176,7 +174,7 @@ function App() {
 
   // Function to delete an item from the database
   const handleDeleteItem = (deletedItem) => {
-    itemApi
+    api
       .deleteItem(deletedItem)
       .then(() => {
         setClothingItems(
