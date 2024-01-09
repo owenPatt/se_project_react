@@ -69,6 +69,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           id="image"
           className="form__input-text"
           type="url"
+          value={imageSrc}
           onChange={handleImageSrcChange}
           required
         />

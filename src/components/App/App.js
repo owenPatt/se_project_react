@@ -164,12 +164,9 @@ function App() {
 
   // Function to add a new item to the database
   const handleAddItemSubmit = (item) => {
-    return api
-      .postItem(item)
-      .then((res) => {
-        setClothingItems([res, ...clothingItems]);
-      })
-      .catch(console.error);
+    return api.postItem(item).then((res) => {
+      setClothingItems([res, ...clothingItems]);
+    });
   };
 
   // Function to delete an item from the database
