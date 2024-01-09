@@ -48,13 +48,19 @@ function Main({
       </p>
       <div className="main__card-container">
         {/* Map through and render ItemCard components based on the current weather temperature category. */}
-        <ItemsList
-          tempCategory={tempCategory}
-          onSetActiveImage={onSetActiveImage}
-          items={clothingItems}
-          onCardLike={onCardLike}
-        />
-        <ItemCard show={false} />
+        {clothingItems
+          .filter((item) => {
+            return item.weather.toLowerCase() === tempCategory && item.owner;
+          })
+          .map((item) => {
+            return (
+              <ItemCard
+                key={item._id}
+                onSetActiveImage={onSetActiveImage}
+                item={item}
+                onCardLike={onCardLike}></ItemCard>
+            );
+          })}
       </div>
     </main>
   );

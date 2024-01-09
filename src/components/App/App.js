@@ -270,7 +270,7 @@ function App() {
           {activeModal === "delete-item" && (
             <DeleteItemModal
               item={activeItem}
-              onModalClose={handleUnsetActiveItem}
+              onClose={handleUnsetActiveItem}
               onDelete={handleDeleteItem}></DeleteItemModal>
           )}
           {/* Sign Up Modal */}
