@@ -1,6 +1,6 @@
 import { location } from "./constants";
 
-class Api {
+export class ProfileApi {
   constructor(token) {
     this._token = token;
     this._baseUrl = "http://localhost:3001";
@@ -11,11 +11,6 @@ class Api {
       "content-type": "application/json",
       Authorization: `Bearer ${this._token}`,
     };
-
-    // weather API configuration parameters
-    this._latitude = location.latitude;
-    this._longitude = location.longitude;
-    this._APIkey = "0f6644e4cecfb4b8560776a0d89aaa59";
   }
 
   _checkResponse = (res) => {
@@ -72,10 +67,26 @@ class Api {
     this.token = token;
     this._secHeaders.Authorization = `Bearer ${token}`;
   };
+}
 
-  /******************
-   * WEATHER API *
-   ******************/
+/******************
+ * WEATHER API *
+ ******************/
+
+export class WeatherApi {
+  constructor() {
+    this._latitude = location.latitude;
+    this._longitude = location.longitude;
+    this._APIkey = "0f6644e4cecfb4b8560776a0d89aaa59";
+  }
+
+  // Checks the response from the server
+  _checkResponse = (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  };
 
   // Fetches weather information
   getForecastWeather = () => {
@@ -122,5 +133,3 @@ class Api {
     return false; // It's nighttime.
   };
 }
-
-export default Api;

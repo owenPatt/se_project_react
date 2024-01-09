@@ -32,12 +32,16 @@ function LoginModal({ onClose, setActiveModal, onSubmit }) {
       secFunc="or Register"
       secFuncOnClick={redirectToRegister}>
       <div className="form__item">
-        <label className="form__label">Email</label>
+        <label className="form__label" htmlFor="email">
+          Email
+        </label>
         <input
           placeholder="Email"
           className="form__input-text"
           type="email"
           name="email"
+          id="email"
+          value={email}
           minLength={"1"}
           maxLength={"30"}
           onChange={handleEmailChange}
@@ -45,10 +49,14 @@ function LoginModal({ onClose, setActiveModal, onSubmit }) {
         />
       </div>
       <div className="form__item">
-        <label className="form__label">Password</label>
+        <label className="form__label" htmlFor="password">
+          Password
+        </label>
         <input
           placeholder="Password"
+          id="password"
           name="password"
+          value={password}
           className="form__input-text"
           type="password"
           onChange={handlePasswordChange}
