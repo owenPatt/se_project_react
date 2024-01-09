@@ -19,6 +19,11 @@ import * as auth from "../../utils/auth";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ChangeProfileModal from "../ChangeProfileModal/ChangeProfileModal";
 
+// Create an instance of the Api classes
+// Outside of the App component so that it is not re-created on every render
+const weatherApi = new WeatherApi();
+const profileApi = new ProfileApi();
+
 // Define the main App component.
 function App() {
   // State variables and their initial values.
@@ -33,10 +38,6 @@ function App() {
   const [clothingItems, setClothingItems] = useState([]);
   const [user, setUser] = useState({}); // User object from the server [name, avatarUrl, email]
   const [loggedIn, setLoggedIn] = useState(false); // Used to track login status
-
-  // Create an instance of the Api classes
-  const weatherApi = new WeatherApi();
-  const profileApi = new ProfileApi();
 
   // Use the useEffect hook to fetch weather data when the component mounts.
   useEffect(() => {
