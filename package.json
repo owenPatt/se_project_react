@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "scp -r -i ~/.ssh/id_ed25519 ./build/* owen.patt.8@wtwr.haoqiw.com:/home/owen.patt.8/frontend"
   },
   "eslintConfig": {
     "extends": [
