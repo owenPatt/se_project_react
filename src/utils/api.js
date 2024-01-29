@@ -3,7 +3,10 @@ import { location } from "./constants";
 export class ProfileApi {
   constructor(token) {
     this._token = token;
-    this._baseUrl = "http://localhost:3001";
+    this._baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://api.wtwr.haoqiw.com"
+        : "http://localhost:3001";
     this._headers = {
       "content-type": "application/json",
     };
